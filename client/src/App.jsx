@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-// import axios from 'axios'
 import './App.css'
 
 function App() {
@@ -9,10 +8,11 @@ function App() {
     const getPosts = async () => {
       try {
         // const res = await fetch(`${import.meta.env.VITE_REST_SERVER_URL}/posts`)
-        const res = await fetch(`https://codemates-server.onrender.com/posts`)
+        const res = await fetch(`${import.meta.env.VITE_REST_SERVER_URL}/posts`)
         const data = await res.json()
 
         setPosts(data)
+        console.log(data)
       } catch (err) {
         console.error(err)
       }
