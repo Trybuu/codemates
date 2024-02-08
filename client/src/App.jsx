@@ -8,7 +8,8 @@ function App() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_REST_SERVER_URL}/posts`)
+        // const res = await fetch(`${import.meta.env.VITE_REST_SERVER_URL}/posts`)
+        const res = await fetch(`https://codemates-server.onrender.com/posts`)
         const data = await res.json()
 
         setPosts(data)

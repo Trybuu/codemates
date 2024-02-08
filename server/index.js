@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.get('/posts', async (req, res) => {
   try {
-    const posts = await pool.query(`SELECT * from posts`)
+    const posts = await pool.query(`select * from posts`)
 
     res.set('Content-type', 'application/json')
     res.json(posts.rows)
