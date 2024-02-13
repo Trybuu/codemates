@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div>
-      <h3>Hello World</h3>
+      <h3>Building in progress...</h3>
       <h4>Posts</h4>
       {posts &&
         posts.map((post, index) => {
