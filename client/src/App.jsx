@@ -1,43 +1,31 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './index.css'
+import Root from './layouts/Root.jsx'
+import Home from './pages/Home.jsx'
+import Announcements from './pages/Announcements.jsx'
+import Chat from './pages/Chat.jsx'
 
-function App() {
-  const [posts, setPosts] = useState(null)
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: '/announcements',
+        element: <Announcements />,
+      },
+      {
+        path: '/chat',
+        element: <Chat />,
+      },
+    ],
+  },
+])
 
-  useEffect(() => {
-    const getPosts = async () => {
-      try {
-        // const res = await fetch(`${import.meta.env.VITE_REST_SERVER_URL}/posts`)
-        const res = await fetch(`${import.meta.env.VITE_REST_SERVER_URL}/posts`)
-        const data = await res.json()
-
-        setPosts(data)
-        console.log(data)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-
-    getPosts()
-  }, [])
-
-  if (posts) console.log(posts)
-
-  return (
-    <div>
-      <h3>Building in progress...</h3>
-      <h4>Posts</h4>
-      {posts &&
-        posts.map((post, index) => {
-          return (
-            <div key={index}>
-              <h5>{post.title}</h5>
-              <p>{post.description}</p>
-            </div>
-          )
-        })}
-    </div>
-  )
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App
