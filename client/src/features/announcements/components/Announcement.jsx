@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import formatDate from '../../../utils/formatDate'
 import classes from './Announcement.module.scss'
+import UserIcon from './UserIcon'
+import CalendarIcon from './CalendarIcon'
 
 export default function Announcement({
   id,
@@ -14,10 +16,16 @@ export default function Announcement({
   return (
     <div className={classes['announcement']}>
       <div className={classes['header']}>
-        <p className={classes['header__info']}>
-          {' '}
-          {author} {formatDate(date)}
-        </p>
+        <div className={classes['header__info']}>
+          <div className={classes['header__author']}>
+            <UserIcon />
+            {author}
+          </div>
+          <div className={classes['header__date']}>
+            <CalendarIcon />
+            {formatDate(date)}
+          </div>
+        </div>
         <Link to={`${id}`} relative="path">
           <h3 className={classes['header__title']}>{title}</h3>
         </Link>
