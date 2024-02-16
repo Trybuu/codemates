@@ -6,6 +6,6 @@ const postsRouter = require('./routes/posts')
 app.use(cors())
 app.use(express.json())
 
-app.use('/posts', postsRouter)
+app.use('/announcements', postsRouter)
 
 module.exports = app
