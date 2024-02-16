@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
 import formatDate from '../../../utils/formatDate'
 import classes from './Announcement.module.scss'
 
 export default function Announcement({
+  id,
   title,
   author,
   date,
@@ -16,7 +18,9 @@ export default function Announcement({
           {' '}
           {author} {formatDate(date)}
         </p>
-        <h3 className={classes['header__title']}>{title}</h3>
+        <Link to={`${id}`} relative="path">
+          <h3 className={classes['header__title']}>{title}</h3>
+        </Link>
       </div>
 
       <p>{shortDescription}</p>

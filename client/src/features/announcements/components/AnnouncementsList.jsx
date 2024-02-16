@@ -13,6 +13,7 @@ export default function AnnouncementsList() {
       {announcements?.map((announcement) => (
         <Announcement
           key={announcement.announcement_id}
+          id={announcement.announcement_id}
           title={announcement.title}
           date={announcement.date_posted}
           author={announcement.username}
