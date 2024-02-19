@@ -8,6 +8,11 @@
   font-family: 'Raleway', sans-serif;
 }
 
+button,
+input {
+  font-family: 'Raleway', sans-serif;
+}
+
 .content-wrapper {
   max-width: 1200px;
   min-height: 100vh;

@@ -3,12 +3,18 @@
   border-bottom: 2px solid rgba(150, 150, 150, 0.1);
 }
 
-.nav-links {
+.wrapper {
   display: flex;
-  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
 
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
 
   list-style: none;
 
@@ -19,6 +25,10 @@
     &--active {
       font-weight: 700;
     }
+  }
+
+  &__signin {
+    justify-content: flex-end;
   }
 }
 

@@ -3,7 +3,10 @@ import './index.css'
 import Root from './layouts/Root.jsx'
 import Home from './pages/Home.jsx'
 import Announcements from './pages/Announcements.jsx'
+import Announcement from './pages/Announcement.jsx'
 import Chat from './pages/Chat.jsx'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,8 +22,20 @@ const router = createBrowserRouter([
         element: <Announcements />,
       },
       {
+        path: '/announcements/:id',
+        element: <Announcement />,
+      },
+      {
         path: '/chat',
         element: <Chat />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
       },
     ],
   },
