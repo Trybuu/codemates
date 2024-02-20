@@ -3,13 +3,13 @@ import useFetch from '../hooks/useFetch'
 
 export default function Announcement() {
   const params = useParams()
-  // const announcement = useFetch(
-  //   `${import.meta.env.VITE_REST_SERVER_URL}/announcements/${params.id}`,
-  // )
-
   const announcement = useFetch(
-    `https://codemates-server.onrender.com/announcements/${params.id}`,
+    `${import.meta.env.VITE_REST_SERVER_URL}/announcements/${params.id}`,
   )
+
+  // const announcement = useFetch(
+  //   `https://codemates-server.onrender.com/announcements/${params.id}`,
+  // )
 
   return (
     <div>

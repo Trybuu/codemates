@@ -1,8 +1,7 @@
 import Introduction from '../components/introduction/Introduction'
 
 export default function Chat() {
-  const intro =
-    'Rozmawiaj na czacie ogólnym z innymi użytkownikami, dziel się pomysłami, zadawaj pytania, oraz nawiąż nowe kontakty. Czat ogólny to miejsce, gdzie możesz dyskutować na różnorodne tematy i poznać społeczność platformy.'
+  const intro = `Chat in general chat with other users, share ideas, ask questions, and make new contacts. General chat is a place where you can discuss a variety of topics and get to know the platform's community.`
 
   return (
     <div>

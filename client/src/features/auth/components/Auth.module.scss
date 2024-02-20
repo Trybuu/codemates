@@ -1,7 +1,7 @@
 .auth {
   display: flex;
   align-items: center;
-  height: 80vh;
+  min-height: 80vh;
   margin: 1rem 0;
   border-radius: 4px;
 
@@ -44,6 +44,7 @@
     margin: 0.5rem 0;
     padding: 0.5rem;
     border-radius: 4px;
+    background-color: transparent;
   }
 
   &__star {

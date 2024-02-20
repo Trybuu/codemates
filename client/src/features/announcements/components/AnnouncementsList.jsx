@@ -4,13 +4,13 @@ import Announcement from './Announcement'
 import classes from './AnnouncementsList.module.scss'
 
 export default function AnnouncementsList() {
-  // const announcements = useFetch(
-  //   `${import.meta.env.VITE_REST_SERVER_URL}/announcements`,
-  // )
-
   const announcements = useFetch(
-    `https://codemates-server.onrender.com/announcements`,
+    `${import.meta.env.VITE_REST_SERVER_URL}/announcements`,
   )
+
+  // const announcements = useFetch(
+  //   `https://codemates-server.onrender.com/announcements`,
+  // )
 
   if (announcements) console.log(announcements)
 
