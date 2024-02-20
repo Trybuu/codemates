@@ -35,3 +35,9 @@
 .active {
   color: orange;
 }
+
+.right-side {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}

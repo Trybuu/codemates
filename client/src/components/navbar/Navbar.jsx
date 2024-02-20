@@ -1,9 +1,24 @@
+import { useCookies } from 'react-cookie'
 import { Link, NavLink } from 'react-router-dom'
 
 import classes from './Navbar.module.scss'
 import ButtonSolid from '../ui/buttons/ButtonSolid'
 
 export default function Navbar() {
+  const [cookies, , removeCookie] = useCookies(null)
+
+  const token = cookies.AuthToken
+  const username = cookies.Username
+
+  function handleLogOut() {
+    console.log('LOGOUT ME')
+    removeCookie('AuthToken')
+    removeCookie('Email')
+    removeCookie('Username')
+
+    window.location.reload()
+  }
+
   const links = [
     {
       path: '/',
@@ -42,9 +57,22 @@ export default function Navbar() {
           })}
         </ul>
 
-        <Link className={classes['nav-links__signin']} to={'/login'}>
-          <ButtonSolid>Sign in</ButtonSolid>
-        </Link>
+        <div className={classes['right-side']}>
+          <p>{username ? username : null}</p>
+
+          {token ? (
+            <ButtonSolid
+              className={classes['nav-links__signin']}
+              onClick={handleLogOut}
+            >
+              Sign out
+            </ButtonSolid>
+          ) : (
+            <Link className={classes['nav-links__signin']} to={'/login'}>
+              <ButtonSolid>Sign in</ButtonSolid>
+            </Link>
+          )}
+        </div>
       </div>
     </nav>
   )

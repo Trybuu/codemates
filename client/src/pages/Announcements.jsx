@@ -3,7 +3,7 @@ import { AnnouncementsList } from '../features/announcements'
 
 export default function Announcements() {
   const intro =
-    'Przejrzyj ogłoszenia użytkowników poszukujących partnerów do współpracy nad różnorodnymi projektami. Znajdź idealnego partnera do realizacji swoich pomysłów lub dołącz do innowacyjnych projektów, szukając ogłoszeń pasujących do Twoich umiejętności i zainteresowań. '
+    'Browse through announcements from users looking for partners to collaborate on various projects. Find the perfect partner to implement your ideas or join innovative projects by looking for ads that match your skills and interests.'
 
   return (
     <>
