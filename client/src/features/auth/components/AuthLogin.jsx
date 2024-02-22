@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux'
+import { login } from '../authSlice'
 import { useCookies } from 'react-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import classes from './Auth.module.scss'
@@ -5,6 +7,8 @@ import Aside from './Aside'
 
 export default function AuthLogin() {
   const [cookies, setCookie] = useCookies(null)
+
+  const dispatch = useDispatch()
 
   console.log(cookies)
   const navigate = useNavigate()
@@ -32,6 +36,8 @@ export default function AuthLogin() {
       setCookie('Email', data.email)
       setCookie('AuthToken', data.token)
       setCookie('Username', data.username)
+
+      dispatch(login())
 
       navigate('/')
       window.location.reload()

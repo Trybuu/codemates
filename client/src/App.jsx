@@ -7,6 +7,7 @@ import Announcement from './pages/Announcement.jsx'
 import Chat from './pages/Chat.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
+import CreateAnnouncement from './pages/CreateAnnouncement.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/announcements/:id',
         element: <Announcement />,
+      },
+      {
+        path: '/createannouncement',
+        element: <CreateAnnouncement />,
       },
       {
         path: '/chat',
