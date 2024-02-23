@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import formatDate from '../../../utils/formatDate'
 import classes from './Announcement.module.scss'
-import UserIcon from './UserIcon'
-import CalendarIcon from './CalendarIcon'
+import { UserIcon, CalendarIcon } from './Icons'
 
 export default function Announcement({
   id,
