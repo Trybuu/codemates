@@ -1,6 +1,7 @@
 import { useCookies } from 'react-cookie'
 import Introduction from '../components/introduction/Introduction'
 import InfoMessage from '../components/ui/messages/InfoMessage'
+import AnnouncementCreator from '../features/announcements/components/AnnouncementCreator'
 
 export default function CreateAnnouncement() {
   const [cookies, , ,] = useCookies()
@@ -13,11 +14,13 @@ export default function CreateAnnouncement() {
   return (
     <>
       <Introduction text={intro} />
-      {!token && (
+      {!token ? (
         <InfoMessage
           type={'warning'}
           info={'You must be logged in to post an announcement!'}
         />
+      ) : (
+        <AnnouncementCreator />
       )}
     </>
   )
