@@ -39,7 +39,7 @@ export default function Navbar() {
     },
     {
       path: '/createannouncement',
-      linkName: '+ Announcement',
+      linkName: 'Create Announcement',
     },
   ]
 
