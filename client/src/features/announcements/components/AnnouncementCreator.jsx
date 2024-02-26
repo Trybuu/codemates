@@ -1,8 +1,80 @@
 import useFetch from '../../../hooks/useFetch'
 import { PaperPlaneIcon } from './Icons'
 import classes from './AnnouncementCreator.module.scss'
+import { useRef, useState } from 'react'
+import InfoMessage from '../../../components/ui/messages/InfoMessage'
+
+/*
+  [X] Pobierz wartości z inputów
+  [X] Sprawdź czy wartości są zgodne
+  [X] Jeśli wartości są niezgodne wyświetl inforamcję
+  [] Jeśli wartości są zgodne prześlij formularz
+  [] Wyświetl stronę z komunikatem lub komunikat, że twoje ogłoszenie zostało zamieszczone
+*/
 
 export default function AnnouncementCreator() {
+  // handle form submit
+  const [selectedTech, setSelectedTech] = useState([])
+  const [errors, setErrors] = useState([])
+
+  const titleRef = useRef()
+  const shortDescRef = useRef()
+  const levelSelectRef = useRef()
+  const longDescRef = useRef()
+
+  function handleCheckboxChange(e) {
+    const { name, checked } = e.target
+
+    if (checked && selectedTech.includes(name)) return
+
+    const updatedTech = checked
+      ? [...selectedTech, name]
+      : selectedTech.filter((tech) => tech !== name)
+
+    setSelectedTech(updatedTech)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log('Submit')
+
+    const fd = {
+      title: titleRef.current.value,
+      shortDescription: shortDescRef.current.value,
+      level: levelSelectRef.current.value,
+      technologies: selectedTech,
+      longDescription: longDescRef.current.value,
+    }
+
+    const errors = validateForm(fd)
+
+    if (errors.length === 0) {
+      setErrors([])
+      console.log('Formularz poprawnei wypełniony')
+    } else {
+      setErrors(errors)
+    }
+  }
+
+  function validateForm(formData) {
+    const errors = []
+
+    if (formData.title.length < 10 || formData.shortDescription.length <= 10) {
+      errors.push(
+        'Title and short description must be at least 10 characters long.',
+      )
+    }
+    if (formData.technologies.length === 0) {
+      errors.push('You must choose at least one technology.')
+    }
+    if (formData.longDescription.length < 50) {
+      errors.push('Description must be at least 50 characters long.')
+    }
+
+    return errors
+  }
+
+  // fetch technologies and create jsx
   const technologies = useFetch(
     `${import.meta.env.VITE_REST_SERVER_URL}/technologies`,
   )
@@ -16,16 +88,16 @@ export default function AnnouncementCreator() {
       <input
         type="checkbox"
         id={technology.technology_id}
-        name={technology.technology_id}
+        name={technology.name}
+        checked={selectedTech.includes(technology.name)}
+        onChange={(e) => handleCheckboxChange(e)}
       />{' '}
       {technology.name}
     </label>
   ))
 
-  console.log(technologies)
-
   return (
-    <form action="" className={classes['creator']}>
+    <form onSubmit={handleSubmit} className={classes['creator']}>
       <div className={classes['question']}>
         <label className={classes['question__label']} htmlFor="title">
           Announcement title
@@ -36,6 +108,7 @@ export default function AnnouncementCreator() {
           id="title"
           name="title"
           placeholder="e.g. monopoly online game"
+          ref={titleRef}
         />
       </div>
 
@@ -52,6 +125,7 @@ export default function AnnouncementCreator() {
           id="shortDescription"
           name="shortDescription"
           placeholder="e.g. project uses mern stack. backend developer needed."
+          ref={shortDescRef}
         />
       </div>
 
@@ -59,28 +133,36 @@ export default function AnnouncementCreator() {
         <label className={classes['question__label']} htmlFor="level">
           Select an level
         </label>
-        <select className={classes['question__select']} id="level">
+        <select
+          className={classes['question__select']}
+          id="level"
+          ref={levelSelectRef}
+        >
           <option
             className={classes['question__select__option']}
             value="Beginner"
+            name="Beginner"
           >
             Beginner
           </option>
           <option
             className={classes['question__select__option']}
             value="Intermediate"
+            name="Intermediate"
           >
             Intermediate
           </option>
           <option
             className={classes['question__select__option']}
             value="Advanced"
+            name="Advanced"
           >
             Advanced
           </option>
           <option
             className={classes['question__select__option']}
             value="Master"
+            name="Master"
           >
             Master
           </option>
@@ -103,7 +185,12 @@ export default function AnnouncementCreator() {
           placeholder={
             'Include as much detail about your project here as possible. If you have created a repository, post a link. Write what you expect from the person you will cooperate with. Write who you are looking for. What skills do you offer and what skills do you expect?'
           }
+          ref={longDescRef}
         ></textarea>
+      </div>
+
+      <div className={classes['error']}>
+        {errors.length > 0 && <InfoMessage type={'error'} info={errors} />}
       </div>
 
       <button className={classes['creator__button']}>
