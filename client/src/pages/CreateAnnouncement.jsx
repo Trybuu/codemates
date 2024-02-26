@@ -17,7 +17,7 @@ export default function CreateAnnouncement() {
       {!token ? (
         <InfoMessage
           type={'warning'}
-          info={'You must be logged in to post an announcement!'}
+          info={['You must be logged in to post an announcement!']}
         />
       ) : (
         <AnnouncementCreator />
