@@ -12,4 +12,8 @@ app.use('/announcements', announcementsRouter)
 app.use('/auth', authRouter)
 app.use('/technologies', technologiesRouter)
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../client', 'index.html'))
+})
+
 module.exports = app
