@@ -1,3 +1,4 @@
+import { useCookies } from 'react-cookie'
 import useFetch from '../../../hooks/useFetch'
 import { PaperPlaneIcon } from './Icons'
 import classes from './AnnouncementCreator.module.scss'
@@ -8,11 +9,13 @@ import InfoMessage from '../../../components/ui/messages/InfoMessage'
   [X] Pobierz wartości z inputów
   [X] Sprawdź czy wartości są zgodne
   [X] Jeśli wartości są niezgodne wyświetl inforamcję
-  [] Jeśli wartości są zgodne prześlij formularz
+  [X] Jeśli wartości są zgodne prześlij formularz
   [] Wyświetl stronę z komunikatem lub komunikat, że twoje ogłoszenie zostało zamieszczone
 */
 
 export default function AnnouncementCreator() {
+  const [cookies, , ,] = useCookies()
+
   // handle form submit
   const [selectedTech, setSelectedTech] = useState([])
   const [errors, setErrors] = useState([])
@@ -23,22 +26,24 @@ export default function AnnouncementCreator() {
   const longDescRef = useRef()
 
   function handleCheckboxChange(e) {
-    const { name, checked } = e.target
-
-    if (checked && selectedTech.includes(name)) return
+    const { id, name, checked } = e.target
+    console.log(id, name, checked)
+    console.log(selectedTech)
+    if (checked && selectedTech.includes(Number(id))) return
 
     const updatedTech = checked
-      ? [...selectedTech, name]
-      : selectedTech.filter((tech) => tech !== name)
+      ? [...selectedTech, Number(id)]
+      : selectedTech.filter((tech) => tech !== Number(id))
 
     setSelectedTech(updatedTech)
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    console.log('Submit')
+    console.log('Submit', cookies.UserId)
 
     const fd = {
+      userId: cookies.UserId,
       title: titleRef.current.value,
       shortDescription: shortDescRef.current.value,
       level: levelSelectRef.current.value,
@@ -51,6 +56,22 @@ export default function AnnouncementCreator() {
     if (errors.length === 0) {
       setErrors([])
       console.log('Formularz poprawnei wypełniony')
+      const response = await fetch(
+        `${import.meta.env.VITE_REST_SERVER_URL}/announcements/post`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(fd),
+        },
+      )
+
+      const data = await response.json()
+
+      if (data.detail) {
+        console.log('Error')
+      } else {
+        window.location.reload()
+      }
     } else {
       setErrors(errors)
     }
@@ -89,7 +110,7 @@ export default function AnnouncementCreator() {
         type="checkbox"
         id={technology.technology_id}
         name={technology.name}
-        checked={selectedTech.includes(technology.name)}
+        checked={selectedTech.includes(technology.technology_id)}
         onChange={(e) => handleCheckboxChange(e)}
       />{' '}
       {technology.name}

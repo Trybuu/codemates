@@ -33,6 +33,7 @@ export default function AuthLogin() {
     if (data.detail) {
       console.log('ERROR')
     } else {
+      setCookie('UserId', data.userId)
       setCookie('Email', data.email)
       setCookie('AuthToken', data.token)
       setCookie('Username', data.username)
