@@ -16,8 +16,8 @@ router.post('/signup', async (req, res) => {
 
     const signUp = await pool.query(
       `
-          INSERT INTO users (username, email, password_hash, nationality)
-          VALUES ($1, $2, $3, 'PL');
+          INSERT INTO users (username, email, password_hash)
+          VALUES ($1, $2, $3);
         `,
       [userName, email, hashedPassword],
     )
@@ -47,6 +47,7 @@ router.post('/login', async (req, res) => {
 
     if (success) {
       res.json({
+        userId: users.rows[0].user_id,
         email: users.rows[0].email,
         username: users.rows[0].username,
         token,
