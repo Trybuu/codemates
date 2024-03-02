@@ -27,10 +27,27 @@ export default function AnnouncementsList() {
     />
   ))
 
-  return (
-    <div className={classes['list']}>
-      {error && <InfoMessage type={error} info={[error]} />}
-      {isPending ? <LoadingCircles /> : announcementsContent}
-    </div>
-  )
+  if (isPending)
+    return (
+      <div className={classes['list']}>
+        <LoadingCircles />
+      </div>
+    )
+
+  if (error)
+    return (
+      <div className={classes['list']}>
+        <InfoMessage type={error} />
+      </div>
+    )
+
+  if (announcements)
+    return <div className={classes['list']}>{announcementsContent}</div>
 }
+
+// return (
+//   <div className={classes['list']}>
+//     {error && <InfoMessage type={error} info={[error]} />}
+//     {isPending ? <LoadingCircles /> : announcementsContent}
+//   </div>
+// )
