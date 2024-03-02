@@ -1,18 +1,18 @@
 import useFetch from '../../../hooks/useFetch'
 import Announcement from './Announcement'
+import InfoMessage from '../../../components/ui/messages/InfoMessage'
 
 import classes from './AnnouncementsList.module.scss'
+import LoadingCircles from '../../../components/ui/loadings/LoadingCircles'
 
 export default function AnnouncementsList() {
-  const announcements = useFetch(
-    `${import.meta.env.VITE_REST_SERVER_URL}/announcements`,
-  )
+  const {
+    data: announcements,
+    isPending,
+    error,
+  } = useFetch(`${import.meta.env.VITE_REST_SERVER_URL}/announcements`)
 
   console.log(announcements)
-
-  // const announcements = useFetch(
-  //   `https://codemates-server.onrender.com/announcements`,
-  // )
 
   const announcementsContent = announcements?.map((announcement) => (
     <Announcement
@@ -29,7 +29,8 @@ export default function AnnouncementsList() {
 
   return (
     <div className={classes['list']}>
-      {announcementsContent ? announcementsContent : <p>Fetching...</p>}
+      {error && <InfoMessage type={error} info={[error]} />}
+      {isPending ? <LoadingCircles /> : announcementsContent}
     </div>
   )
 }

@@ -3,7 +3,11 @@ import useFetch from '../hooks/useFetch'
 
 export default function Announcement() {
   const params = useParams()
-  const announcement = useFetch(
+  const {
+    data: announcement,
+    isPending,
+    error,
+  } = useFetch(
     `${import.meta.env.VITE_REST_SERVER_URL}/announcements/${params.id}`,
   )
 
