@@ -96,9 +96,11 @@ export default function AnnouncementCreator() {
   }
 
   // fetch technologies and create jsx
-  const technologies = useFetch(
-    `${import.meta.env.VITE_REST_SERVER_URL}/technologies`,
-  )
+  const {
+    data: technologies,
+    isPending,
+    error,
+  } = useFetch(`${import.meta.env.VITE_REST_SERVER_URL}/technologies`)
 
   const technologiesList = technologies?.map((technology) => (
     <label
