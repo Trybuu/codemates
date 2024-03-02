@@ -15,7 +15,6 @@ function useFetch(url) {
         setIsPending(false)
       } catch (err) {
         setError(err.message)
-      } finally {
         setIsPending(false)
       }
     }

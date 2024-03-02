@@ -4,6 +4,7 @@ import { PaperPlaneIcon } from './Icons'
 import classes from './AnnouncementCreator.module.scss'
 import { useRef, useState } from 'react'
 import InfoMessage from '../../../components/ui/messages/InfoMessage'
+import LoadingCircles from '../../../components/ui/loadings/LoadingCircles'
 
 /*
   [X] Pobierz wartości z inputów
@@ -96,11 +97,9 @@ export default function AnnouncementCreator() {
   }
 
   // fetch technologies and create jsx
-  const {
-    data: technologies,
-    isPending,
-    error,
-  } = useFetch(`${import.meta.env.VITE_REST_SERVER_URL}/technologies`)
+  const { data: technologies, isPending } = useFetch(
+    `${import.meta.env.VITE_REST_SERVER_URL}/technologies`,
+  )
 
   const technologiesList = technologies?.map((technology) => (
     <label
@@ -195,7 +194,7 @@ export default function AnnouncementCreator() {
       <div className={`${classes['question']} `}>
         <p className={classes['question__label']}>Select project tech stack</p>
         <div className={classes['question__checkboxes']}>
-          {technologiesList}
+          {isPending ? <LoadingCircles /> : technologiesList}
         </div>
       </div>
 
@@ -213,7 +212,10 @@ export default function AnnouncementCreator() {
       </div>
 
       <div className={classes['error']}>
-        {errors.length > 0 && <InfoMessage type={'error'} info={errors} />}
+        {errors.length > 0 &&
+          errors.map((error, index) => (
+            <InfoMessage key={index} type={'error'} info={error} />
+          ))}
       </div>
 
       <button className={classes['creator__button']}>

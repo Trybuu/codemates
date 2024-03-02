@@ -6,11 +6,7 @@ export default function InfoMessage({ type, info }) {
     <div className={`${classes['info']} ${classes[`${type}`]} `}>
       <WarningIcon />
       <div className={classes['info__content']}>
-        {typeof info === String ? (
-          <p className={classes['info__text']}>{info}</p>
-        ) : (
-          info.map((i, index) => <p key={index}>{i}</p>)
-        )}
+        <p className={classes['info__text']}>{info}</p>
       </div>
     </div>
   )
