@@ -1,19 +1,28 @@
+import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import classes from './Auth.module.scss'
 import Aside from './Aside'
 
 export default function AuthLogin() {
+  const [validateMessage, setValidateMessage] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+  const [allowSendForm, setAllowSendForm] = useState(false)
   const [cookies] = useCookies(null)
   const navigate = useNavigate()
-  console.log(cookies)
 
   async function handleSubmit(e) {
     e.preventDefault()
 
     const fd = new FormData(e.target)
     const userData = Object.fromEntries(fd.entries())
-    console.log(userData)
+
+    console.table(userData)
+    validateForm(userData)
 
     const response = await fetch(
       `${import.meta.env.VITE_REST_SERVER_URL}/auth/signup`,
@@ -25,8 +34,7 @@ export default function AuthLogin() {
     )
 
     const data = await response.json()
-
-    if (data.detail) {
+    if (data.detail || !allowSendForm) {
       console.log('ERROR')
     } else {
       // setCookie('Email', data.email)
@@ -35,6 +43,22 @@ export default function AuthLogin() {
       window.location.reload()
     }
     console.log(data)
+  }
+
+  function validateForm(formData) {
+    const { userName, email, password, confirmPassword } = formData
+
+    if (userName.length < 5)
+      setValidateMessage((prevState) => ({
+        ...prevState,
+        userName: 'User name must be at least 5 characters long',
+      }))
+    if (email.indexOf('@') === -1) {
+      setValidateMessage((prevState) => ({
+        ...prevState,
+        email: 'It must be valid email',
+      }))
+    }
   }
 
   return (
@@ -54,6 +78,9 @@ export default function AuthLogin() {
               id="userName"
               name="userName"
             />
+            <p className={classes['auth__error-text']}>
+              {validateMessage.userName}
+            </p>
           </label>
 
           <label htmlFor="email">
@@ -65,6 +92,9 @@ export default function AuthLogin() {
               id="email"
               name="email"
             />
+            <p className={classes['auth__error-text']}>
+              {validateMessage.email}
+            </p>
           </label>
 
           <label htmlFor="password">

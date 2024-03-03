@@ -1,19 +1,24 @@
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from '../authSlice'
 import { useCookies } from 'react-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import classes from './Auth.module.scss'
 import Aside from './Aside'
+import Overlay from '../../../components/ui/overlays/Overlay'
 
 export default function AuthLogin() {
   const [cookies, setCookie] = useCookies(null)
-
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
   const dispatch = useDispatch()
 
   console.log(cookies)
   const navigate = useNavigate()
   async function handleSubmit(e) {
     e.preventDefault()
+
+    setIsLoading(true)
 
     const fd = new FormData(e.target)
     const userData = Object.fromEntries(fd.entries())
@@ -31,7 +36,8 @@ export default function AuthLogin() {
     const data = await response.json()
 
     if (data.detail) {
-      console.log('ERROR')
+      setIsLoading(false)
+      setError(data.detail)
     } else {
       setCookie('UserId', data.userId)
       setCookie('Email', data.email)
@@ -39,6 +45,7 @@ export default function AuthLogin() {
       setCookie('Username', data.username)
 
       dispatch(login())
+      setIsLoading(false)
 
       navigate('/')
       window.location.reload()
@@ -47,38 +54,44 @@ export default function AuthLogin() {
   }
 
   return (
-    <div className={classes['auth']}>
-      <div className={classes['auth__form']}>
-        <h3>Welcome back! Please login to get started.</h3>
-        <form onSubmit={handleSubmit} className={classes['form']}>
-          <label htmlFor="email">
-            Email address<span className={classes['form__star']}>*</span>
-            <br></br>
-            <input
-              type="email"
-              placeholder="name@domain.com"
-              id="email"
-              name="email"
-            />
-          </label>
-          <label htmlFor="password">
-            Password<span className={classes['form__star']}>*</span>
-            <br></br>
-            <input
-              type="password"
-              placeholder="At least 8 characters"
-              id="password"
-              name="password"
-            />
-          </label>
+    <>
+      {isLoading && <Overlay />}
 
-          <input type="submit" value={'Sign in'} />
-          <Link>Forgot your password?</Link>
-          <Link to={'/register'}>Dont have an account? Sign up</Link>
-        </form>
+      <div className={classes['auth']}>
+        <div className={classes['auth__form']}>
+          <h3>Welcome back! Please login to get started.</h3>
+          <form onSubmit={handleSubmit} className={classes['form']}>
+            <label htmlFor="email">
+              Email address<span className={classes['form__star']}>*</span>
+              <br></br>
+              <input
+                type="email"
+                placeholder="name@domain.com"
+                id="email"
+                name="email"
+              />
+            </label>
+            <label htmlFor="password">
+              Password<span className={classes['form__star']}>*</span>
+              <br></br>
+              <input
+                type="password"
+                placeholder="At least 8 characters"
+                id="password"
+                name="password"
+              />
+            </label>
+            <p className={classes['auth__error-text']}>
+              {error && `${error}. Check your login data and try again.`}
+            </p>
+            <input type="submit" value={'Sign in'} />
+            <Link>Forgot your password?</Link>
+            <Link to={'/register'}>Dont have an account? Sign up</Link>
+          </form>
+        </div>
+
+        <Aside />
       </div>
-
-      <Aside />
-    </div>
+    </>
   )
 }
