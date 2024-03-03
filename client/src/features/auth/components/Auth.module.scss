@@ -13,6 +13,11 @@
     display: none;
   }
 
+  &__error-text {
+    color: orangered;
+    font-size: 0.8rem;
+  }
+
   @media screen and (min-width: 1200px) {
     &__form {
       width: 40%;

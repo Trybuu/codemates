@@ -44,10 +44,3 @@ export default function AnnouncementsList() {
   if (announcements)
     return <div className={classes['list']}>{announcementsContent}</div>
 }
-
-// return (
-//   <div className={classes['list']}>
-//     {error && <InfoMessage type={error} info={[error]} />}
-//     {isPending ? <LoadingCircles /> : announcementsContent}
-//   </div>
-// )

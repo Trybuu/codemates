@@ -13,9 +13,6 @@ export default function Announcement() {
     `${import.meta.env.VITE_REST_SERVER_URL}/announcements/${params.id}`,
   )
 
-  // const announcement = useFetch(
-  //   `https://codemates-server.onrender.com/announcements/${params.id}`,
-  // )
   if (isPending) return <LoadingCircles />
   if (error) return <InfoMessage type="error" info={error} />
   if (announcement)
