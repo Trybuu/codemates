@@ -1,0 +1,35 @@
+@import '../../../styles/mixins';
+
+.announcement {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__posted-info {
+    @include border-around;
+
+    padding: 1rem;
+  }
+
+  &__author-and-date {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__short-description {
+    @include border-around;
+    padding: 1rem;
+  }
+
+  &__stack {
+    @include border-around;
+
+    padding: 1rem;
+  }
+
+  &__description {
+    @include border-around;
+
+    padding: 1rem;
+  }
+}

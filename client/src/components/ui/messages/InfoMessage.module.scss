@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .info,
 .error {
   display: block;
@@ -23,9 +25,9 @@
 }
 
 .info {
-  background: rgba(197, 172, 30, 0.8);
+  background: $yellow;
 }
 
 .error {
-  background: rgba(180, 43, 38, 0.8);
+  background: $red;
 }

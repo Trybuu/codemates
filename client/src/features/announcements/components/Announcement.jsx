@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import formatDate from '../../../utils/formatDate'
 import classes from './Announcement.module.scss'
 import { UserIcon, CalendarIcon } from './Icons'
+import AnnouncementStack from './AnnouncementStack'
 
 export default function Announcement({
   id,
@@ -34,13 +35,7 @@ export default function Announcement({
       <div>
         <div className={classes['level']}>Level: {level}</div>
       </div>
-      <div className={classes['tech-stack']}>
-        {techStack.map((tech) => (
-          <div key={tech} className={classes['tech-stack__tech']}>
-            {tech}
-          </div>
-        ))}
-      </div>
+      <AnnouncementStack techStack={techStack} />
     </div>
   )
 }

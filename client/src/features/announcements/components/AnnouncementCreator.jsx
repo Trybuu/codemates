@@ -5,6 +5,8 @@ import classes from './AnnouncementCreator.module.scss'
 import { useRef, useState } from 'react'
 import InfoMessage from '../../../components/ui/messages/InfoMessage'
 import LoadingCircles from '../../../components/ui/loadings/LoadingCircles'
+import Overlay from '../../../components/ui/overlays/Overlay'
+import ButtonFullWidth from '../../../components/ui/buttons/ButtonFullWidth'
 
 /*
   [X] Pobierz wartości z inputów
@@ -20,6 +22,7 @@ export default function AnnouncementCreator() {
   // handle form submit
   const [selectedTech, setSelectedTech] = useState([])
   const [errors, setErrors] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const titleRef = useRef()
   const shortDescRef = useRef()
@@ -41,7 +44,7 @@ export default function AnnouncementCreator() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    console.log('Submit', cookies.UserId)
+    setIsLoading(true)
 
     const fd = {
       userId: cookies.UserId,
@@ -56,7 +59,6 @@ export default function AnnouncementCreator() {
 
     if (errors.length === 0) {
       setErrors([])
-      console.log('Formularz poprawnei wypełniony')
       const response = await fetch(
         `${import.meta.env.VITE_REST_SERVER_URL}/announcements/post`,
         {
@@ -76,6 +78,8 @@ export default function AnnouncementCreator() {
     } else {
       setErrors(errors)
     }
+
+    setIsLoading(false)
   }
 
   function validateForm(formData) {
@@ -119,108 +123,118 @@ export default function AnnouncementCreator() {
   ))
 
   return (
-    <form onSubmit={handleSubmit} className={classes['creator']}>
-      <div className={classes['question']}>
-        <label className={classes['question__label']} htmlFor="title">
-          Announcement title
-        </label>
-        <input
-          className={classes['question__input']}
-          type="text"
-          id="title"
-          name="title"
-          placeholder="e.g. monopoly online game"
-          ref={titleRef}
-        />
-      </div>
+    <>
+      {isLoading && <Overlay />}
 
-      <div className={classes['question']}>
-        <label
-          className={classes['question__label']}
-          htmlFor="shortDescription"
-        >
-          Short description
-        </label>
-        <input
-          className={classes['question__input']}
-          type="text"
-          id="shortDescription"
-          name="shortDescription"
-          placeholder="e.g. project uses mern stack. backend developer needed."
-          ref={shortDescRef}
-        />
-      </div>
-
-      <div className={classes['question']}>
-        <label className={classes['question__label']} htmlFor="level">
-          Select an level
-        </label>
-        <select
-          className={classes['question__select']}
-          id="level"
-          ref={levelSelectRef}
-        >
-          <option
-            className={classes['question__select__option']}
-            value="Beginner"
-            name="Beginner"
-          >
-            Beginner
-          </option>
-          <option
-            className={classes['question__select__option']}
-            value="Intermediate"
-            name="Intermediate"
-          >
-            Intermediate
-          </option>
-          <option
-            className={classes['question__select__option']}
-            value="Advanced"
-            name="Advanced"
-          >
-            Advanced
-          </option>
-          <option
-            className={classes['question__select__option']}
-            value="Master"
-            name="Master"
-          >
-            Master
-          </option>
-        </select>
-      </div>
-
-      <div className={`${classes['question']} `}>
-        <p className={classes['question__label']}>Select project tech stack</p>
-        <div className={classes['question__checkboxes']}>
-          {isPending ? <LoadingCircles /> : technologiesList}
+      <form onSubmit={handleSubmit} className={classes['creator']}>
+        <div className={classes['question']}>
+          <label className={classes['question__label']} htmlFor="title">
+            Announcement title
+          </label>
+          <input
+            className={classes['question__input']}
+            type="text"
+            id="title"
+            name="title"
+            placeholder="e.g. monopoly online game"
+            ref={titleRef}
+          />
         </div>
-      </div>
 
-      <div className={classes['question']}>
-        <label className={classes['question__label']} htmlFor="longDescription">
-          Long Description
-        </label>
-        <textarea
-          className={classes['question__textarea']}
-          placeholder={
-            'Include as much detail about your project here as possible. If you have created a repository, post a link. Write what you expect from the person you will cooperate with. Write who you are looking for. What skills do you offer and what skills do you expect?'
-          }
-          ref={longDescRef}
-        ></textarea>
-      </div>
+        <div className={classes['question']}>
+          <label
+            className={classes['question__label']}
+            htmlFor="shortDescription"
+          >
+            Short description
+          </label>
+          <input
+            className={classes['question__input']}
+            type="text"
+            id="shortDescription"
+            name="shortDescription"
+            placeholder="e.g. project uses mern stack. backend developer needed."
+            ref={shortDescRef}
+          />
+        </div>
 
-      <div className={classes['error']}>
-        {errors.length > 0 &&
-          errors.map((error, index) => (
-            <InfoMessage key={index} type={'error'} info={error} />
-          ))}
-      </div>
+        <div className={classes['question']}>
+          <label className={classes['question__label']} htmlFor="level">
+            Select an level
+          </label>
+          <select
+            className={classes['question__select']}
+            id="level"
+            ref={levelSelectRef}
+          >
+            <option
+              className={classes['question__select__option']}
+              value="Beginner"
+              name="Beginner"
+            >
+              Beginner
+            </option>
+            <option
+              className={classes['question__select__option']}
+              value="Intermediate"
+              name="Intermediate"
+            >
+              Intermediate
+            </option>
+            <option
+              className={classes['question__select__option']}
+              value="Advanced"
+              name="Advanced"
+            >
+              Advanced
+            </option>
+            <option
+              className={classes['question__select__option']}
+              value="Master"
+              name="Master"
+            >
+              Master
+            </option>
+          </select>
+        </div>
 
-      <button className={classes['creator__button']}>
-        <PaperPlaneIcon /> {'Post an announcement'}{' '}
-      </button>
-    </form>
+        <div className={`${classes['question']} `}>
+          <p className={classes['question__label']}>
+            Select project tech stack
+          </p>
+          <div className={classes['question__checkboxes']}>
+            {isPending ? <LoadingCircles /> : technologiesList}
+          </div>
+        </div>
+
+        <div className={classes['question']}>
+          <label
+            className={classes['question__label']}
+            htmlFor="longDescription"
+          >
+            Long Description
+          </label>
+          <textarea
+            className={classes['question__textarea']}
+            placeholder={
+              'Include as much detail about your project here as possible. If you have created a repository, post a link. Write what you expect from the person you will cooperate with. Write who you are looking for. What skills do you offer and what skills do you expect?'
+            }
+            ref={longDescRef}
+          ></textarea>
+        </div>
+
+        <div className={classes['error']}>
+          {errors.length > 0 &&
+            errors.map((error, index) => (
+              <InfoMessage key={index} type={'error'} info={error} />
+            ))}
+        </div>
+
+        <ButtonFullWidth
+          icon={<PaperPlaneIcon />}
+          text={'Post an announcement'}
+        />
+      </form>
+    </>
   )
 }

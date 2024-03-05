@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import classes from './Auth.module.scss'
 import Aside from './Aside'
 import Overlay from '../../../components/ui/overlays/Overlay'
+import ButtonOutline from '../../../components/ui/buttons/ButtonOutline'
 
 export default function AuthLogin() {
   const [cookies, setCookie] = useCookies(null)
@@ -84,7 +85,7 @@ export default function AuthLogin() {
             <p className={classes['auth__error-text']}>
               {error && `${error}. Check your login data and try again.`}
             </p>
-            <input type="submit" value={'Sign in'} />
+            <button className={classes['auth__button']}>Sign in</button>
             <Link>Forgot your password?</Link>
             <Link to={'/register'}>Dont have an account? Sign up</Link>
           </form>
