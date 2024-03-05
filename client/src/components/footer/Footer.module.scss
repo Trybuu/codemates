@@ -1,11 +1,13 @@
+@import '../../styles/variables', '../../styles/mixins';
+
 .footer {
   padding: 1.5rem;
-  border-top: 2px solid rgba(150, 150, 150, 0.1);
+  border-top: 2px solid $gray;
 
   &__content {
+    @include content-wrapper;
+
     display: flex;
     justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
   }
 }

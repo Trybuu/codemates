@@ -9,6 +9,21 @@
     width: 100%;
   }
 
+  &__button {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: transparent;
+    border: 2px solid #006ee6;
+    border-radius: 4px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      background-color: #006ee6;
+    }
+  }
+
   &__aside {
     display: none;
   }

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useCookies } from 'react-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import classes from './Auth.module.scss'
 import Aside from './Aside'
@@ -14,7 +13,6 @@ export default function AuthLogin() {
   })
   const [allowSendForm, setAllowSendForm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [cookies] = useCookies(null)
   const navigate = useNavigate()
 
   async function handleSubmit(e) {
@@ -49,8 +47,6 @@ export default function AuthLogin() {
       console.log('ERROR')
       setIsLoading(false)
     } else {
-      // setCookie('Email', data.email)
-      // setCookie('AuthToken', data.token)
       setIsLoading(false)
       navigate('/login')
       window.location.reload()
@@ -155,7 +151,7 @@ export default function AuthLogin() {
               </p>
             </label>
 
-            <input type="submit" value={'Sign in'} />
+            <button className={classes['auth__button']}>Sign up</button>
           </form>
         </div>
         <Aside />

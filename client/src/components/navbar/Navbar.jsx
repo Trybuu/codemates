@@ -1,22 +1,18 @@
 import { useCookies } from 'react-cookie'
 import { Link, NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+
+import ButtonSolid from '../ui/buttons/ButtonSolid'
+import Logo from '../ui/logo/Logo'
 
 import classes from './Navbar.module.scss'
-import ButtonSolid from '../ui/buttons/ButtonSolid'
 
 export default function Navbar() {
   const [cookies, , removeCookie] = useCookies(null)
-  const user = useSelector((state) => state.auth.loggedIn)
-
-  console.log('Z STORE' + user)
-  console.log(user)
 
   const token = cookies.AuthToken
   const username = cookies.Username
 
   function handleLogOut() {
-    console.log('LOGOUT ME')
     removeCookie('AuthToken')
     removeCookie('Email')
     removeCookie('Username')
@@ -25,10 +21,6 @@ export default function Navbar() {
   }
 
   const links = [
-    {
-      path: '/',
-      linkName: 'Codemates',
-    },
     {
       path: '/announcements',
       linkName: 'Announcements',
@@ -45,8 +37,13 @@ export default function Navbar() {
 
   return (
     <nav className={classes['nav']}>
-      <div className={classes['wrapper']}>
+      <div className={classes['content']}>
         <ul className={classes['nav-links']}>
+          <li>
+            <NavLink to={'/'}>
+              <Logo />
+            </NavLink>
+          </li>
           {links.map((link, index) => (
             <li key={index}>
               <NavLink

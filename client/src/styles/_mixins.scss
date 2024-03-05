@@ -1,0 +1,11 @@
+@import '../styles/variables';
+
+@mixin content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@mixin border-around {
+  border: 2px solid $gray;
+  border-radius: 4px;
+}

@@ -1,43 +1,32 @@
+@import '../../../styles/variables', '../../../styles/mixins';
+
 .announcement {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  box-shadow: -2px 2px 5px rgba(150, 150, 150, 0.5);
-  border-radius: 4px;
+
+  @include border-around;
 }
 
 .header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  &__title {
+    color: $blue-primary;
+  }
   &__info {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
-  &__author {
-    svg {
-      margin-right: 0.5rem;
-    }
-  }
+  &__author,
   &__date {
+    color: $gray-dark;
     svg {
       margin-right: 0.5rem;
     }
-  }
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  &__tech {
-    padding: 0.5rem;
-
-    font-size: 0.8rem;
-    border: 1px solid #1aa130;
-
-    border-radius: 4px;
   }
 }
