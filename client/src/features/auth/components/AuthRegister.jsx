@@ -43,7 +43,7 @@ export default function AuthLogin() {
     )
 
     const data = await response.json()
-    if (data.detail && allowSendForm === false) {
+    if (data.detail || allowSendForm === false) {
       console.log('ERROR')
       setIsLoading(false)
     } else {

@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 import ButtonSolid from '../ui/buttons/ButtonSolid'
 import Logo from '../ui/logo/Logo'
+import { BellIcon } from './Icons'
 
 import classes from './Navbar.module.scss'
 
@@ -62,6 +63,7 @@ export default function Navbar() {
         </ul>
 
         <div className={classes['right-side']}>
+          {<BellIcon />}
           <p>{username ? username : null}</p>
 
           {token ? (
