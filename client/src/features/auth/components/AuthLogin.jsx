@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import classes from './Auth.module.scss'
 import Aside from './Aside'
 import Overlay from '../../../components/ui/overlays/Overlay'
-import ButtonOutline from '../../../components/ui/buttons/ButtonOutline'
 
 export default function AuthLogin() {
   const [cookies, setCookie] = useCookies(null)
