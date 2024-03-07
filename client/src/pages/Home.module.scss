@@ -1,0 +1,59 @@
+// HERO
+.section-hero {
+  display: flex;
+  //   justify-content: center;
+  align-items: center;
+  margin-bottom: 10rem;
+
+  &__text {
+    width: 40%;
+    height: 100%;
+  }
+
+  &__title {
+    font-size: 3rem;
+  }
+
+  &__description {
+  }
+
+  &__image {
+    width: 60%;
+    height: 100%;
+  }
+
+  &__img {
+    max-height: 500px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+}
+
+// ABOUT
+.section-about {
+  text-align: center;
+  margin-bottom: 10rem;
+}
+
+// FEATURES
+.section-features {
+  text-align: center;
+  margin-bottom: 10rem;
+}
+
+// MAP
+.section-map {
+  text-align: center;
+  margin-bottom: 10rem;
+}
+
+// BG
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 75%;
+  width: 100%;
+  background-color: rgb(231, 238, 241);
+  z-index: -1;
+}
