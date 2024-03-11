@@ -1,5 +1,7 @@
 import catImage from '/images/cat-8000855_1280.png'
 import classes from './Home.module.scss'
+import Steps from '../components/steps/Steps'
+import SectionTitle from '../components/section-title/SectionTitle'
 
 export default function Home() {
   return (
@@ -25,52 +27,22 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={classes['section-about']}>
-          <h2>How it Works?</h2>
-          <p>
-            Explore the following steps will help ypu to find someone to
-            cooperate easily
-          </p>
+        <SectionTitle
+          title="How it works?"
+          text="Lorem ipsum dolor selor, cebulion."
+        />
+        <Steps />
 
-          <div>
-            <div>
-              <div>01</div>
-              <div>
-                <h3>Register Account</h3>
-                <p>First, you need to make an account.</p>
-              </div>
-            </div>
-            <div>
-              <div>02</div>
-              <div>
-                <h3>Find Project</h3>
-                <p>Second, find or create your own project.</p>
-              </div>
-            </div>
-            <div>
-              <div>03</div>
-              <div>
-                <h3>Cooperate</h3>
-                <p>
-                  Third, make contact with project owner or wait for response.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <SectionTitle
+          title="Explore by your preferences"
+          text="Find project that fits your skills!"
+        />
 
-        <section className={classes['section-features']}>
-          <h2>Explore by your preferences</h2>
-          <p>Find project that fits your skills!</p>
-        </section>
-
-        <section className={classes['section-map']}>
-          <h2>Find your codemate at the end of the world!</h2>
-          <p>
-            Codemates its platform that connect programmers from around the
-            world.
-          </p>
-        </section>
+        <SectionTitle
+          title="Find your codemate at the end of the world!"
+          text=" Codemates its platform that connect programmers from around the
+          world."
+        />
       </div>
     </>
   )

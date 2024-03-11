@@ -1,0 +1,47 @@
+.cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  padding: 1rem;
+
+  @media screen and (min-width: 1616px) {
+    padding: 0;
+  }
+}
+
+.card {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  width: 100%;
+  box-shadow: 0 10px 100px 1px rgba(200, 200, 200, 0.5);
+  padding: 2rem;
+  border-radius: 1rem;
+  &__number {
+    background-color: greenyellow;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+  }
+
+  &__content {
+  }
+
+  &__title {
+    font-size: 1.2rem;
+  }
+
+  &__desc {
+  }
+
+  @media screen and (min-width: 1200px) {
+    min-height: 160px;
+    width: 30%;
+  }
+}
