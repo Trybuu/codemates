@@ -14,16 +14,20 @@
 
 .card {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
-
   width: 100%;
-  box-shadow: 0 10px 100px 1px rgba(200, 200, 200, 0.5);
+
   padding: 2rem;
+  background-color: #fff;
   border-radius: 1rem;
+  transition: 0.2s ease-in-out;
+
+  cursor: default;
+
   &__number {
-    background-color: greenyellow;
-    color: white;
+    background-color: #cbe2d3;
+    color: #55bc7e;
     padding: 0.5rem 0.75rem;
     font-size: 1.5rem;
     font-weight: 600;
@@ -38,10 +42,21 @@
   }
 
   &__desc {
+    color: #3e4749;
   }
 
   @media screen and (min-width: 1200px) {
     min-height: 160px;
     width: 30%;
+  }
+
+  &--active {
+    background-color: #fff;
+    box-shadow: 0 10px 100px 1px rgba(200, 200, 200, 0.5);
+    transform: scale(1.05);
+    & .card__number {
+      background-color: #55bc7e;
+      color: #fff;
+    }
   }
 }
