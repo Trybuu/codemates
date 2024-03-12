@@ -1,0 +1,93 @@
+.map {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+
+  background-color: rgba(255, 255, 255, 0.2);
+
+  &__photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/map-pngwing.com.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+    opacity: 0.3;
+  }
+
+  &__picture {
+    position: absolute;
+
+    height: 5rem;
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 2px 2px 10px black;
+
+    transition: 0.2s ease-in-out;
+
+    &--active {
+      transform: translateY(-10%);
+      border: 4px solid #7fca99;
+      box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.527);
+    }
+
+    &--0 {
+      top: 22%;
+      left: 20%;
+    }
+
+    &--1 {
+      top: 60%;
+      left: 35%;
+    }
+
+    &--2 {
+      top: 70%;
+      left: 70%;
+    }
+
+    &--3 {
+      top: 25%;
+      left: 50%;
+    }
+
+    &--4 {
+      top: 40%;
+      left: 70%;
+    }
+
+    &--5 {
+      top: 35%;
+      left: 30%;
+    }
+  }
+}
+
+.opinion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 25%;
+
+  color: rgb(30, 54, 46);
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(100, 100, 100, 0.5);
+
+  z-index: 1000;
+
+  &__name {
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+
+  &__text {
+    color: #1b3122;
+  }
+}
