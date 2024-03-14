@@ -1,4 +1,4 @@
-import catImage from '/images/cat-8000855_1280.png'
+import heroImage from '/images/puffin-4146015_1280.jpg'
 import classes from './Home.module.scss'
 import Steps from '../components/steps/Steps'
 import SectionTitle from '../components/section-title/SectionTitle'
@@ -8,8 +8,8 @@ import Map from '../components/map/Map'
 export default function Home() {
   return (
     <>
-      <div className={classes['bg']}></div>
       <div>
+        <div className={classes['bg']}></div>
         <section className={classes['section-hero']}>
           <div className={classes['section-hero__text']}>
             <h1 className={classes['section-hero__title']}>
@@ -23,7 +23,7 @@ export default function Home() {
           <div className={classes['section-hero__image']}>
             <img
               className={classes['section-hero__img']}
-              src={catImage}
+              src={heroImage}
               alt=""
             />
           </div>
