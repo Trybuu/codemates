@@ -1,69 +1,53 @@
+import { FaBars, FaTimes } from 'react-icons/fa'
+import { useRef } from 'react'
 import { useCookies } from 'react-cookie'
 import { Link, NavLink } from 'react-router-dom'
-
-import ButtonSolid from '../ui/buttons/ButtonSolid'
-import Logo from '../ui/logo/Logo'
 import { BellIcon } from './Icons'
-
+import ButtonSolid from '../ui/buttons/ButtonSolid'
 import classes from './Navbar.module.scss'
 
-export default function Navbar() {
+const Navbar = () => {
   const [cookies, , removeCookie] = useCookies(null)
 
   const token = cookies.AuthToken
   const username = cookies.Username
 
-  function handleLogOut() {
+  const links = [
+    { path: '/announcements', linkName: 'Announcements' },
+    { path: '/chat', linkName: 'Chat' },
+    { path: '/createannouncement', linkName: 'Create Announcement' },
+  ]
+
+  const handleLogOut = () => {
     removeCookie('AuthToken')
     removeCookie('Email')
     removeCookie('Username')
-
     window.location.reload()
   }
 
-  const links = [
-    {
-      path: '/announcements',
-      linkName: 'Announcements',
-    },
-    {
-      path: '/chat',
-      linkName: 'Chat',
-    },
-    {
-      path: '/createannouncement',
-      linkName: 'Create Announcement',
-    },
-  ]
+  const navRef = useRef()
+
+  const toggleNavbar = () => {
+    navRef.current.classList.toggle(classes['responsive-nav'])
+  }
 
   return (
-    <nav className={classes['nav']}>
-      <div className={classes['content']}>
-        <ul className={classes['nav-links']}>
-          <li>
-            <NavLink to={'/'}>
-              <Logo />
-            </NavLink>
-          </li>
-          {links.map((link, index) => (
-            <li key={index}>
-              <NavLink
-                to={link.path}
-                className={({ isActive }) =>
-                  isActive
-                    ? `${classes['nav-links__link']} ${classes['nav-links__link--active']}`
-                    : classes['nav-links__link']
-                }
-                end
-              >
-                {link.linkName}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+    <header>
+      <NavLink to={'/'}>
+        <h3>Codemates</h3>
+      </NavLink>
 
-        <div className={classes['right-side']}>
-          {<BellIcon />}
+      <nav ref={navRef} className={classes['nav']}>
+        <div className={classes['nav__links']}>
+          {links.map((link, index) => (
+            <NavLink to={link.path} key={index}>
+              {link.linkName}
+            </NavLink>
+          ))}
+        </div>
+
+        <div className={classes['nav__user-panel']}>
+          <BellIcon />
           <p>{username ? username : null}</p>
 
           {token ? (
@@ -79,7 +63,23 @@ export default function Navbar() {
             </Link>
           )}
         </div>
-      </div>
-    </nav>
+
+        <button
+          onClick={toggleNavbar}
+          className={`${classes['nav-button']} ${classes['nav-button--close']}`}
+        >
+          <FaTimes />
+        </button>
+      </nav>
+
+      <button
+        onClick={toggleNavbar}
+        className={`${classes['nav-button']} ${classes['nav-button--open']}`}
+      >
+        <FaBars />
+      </button>
+    </header>
   )
 }
+
+export default Navbar
