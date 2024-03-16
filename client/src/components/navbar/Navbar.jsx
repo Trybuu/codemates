@@ -1,9 +1,7 @@
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars, FaTimes, FaRegBell } from 'react-icons/fa'
 import { useRef } from 'react'
 import { useCookies } from 'react-cookie'
 import { Link, NavLink } from 'react-router-dom'
-import { BellIcon } from './Icons'
-import ButtonSolid from '../ui/buttons/ButtonSolid'
 import classes from './Navbar.module.scss'
 
 const Navbar = () => {
@@ -34,32 +32,40 @@ const Navbar = () => {
   return (
     <header>
       <NavLink to={'/'}>
-        <h3>Codemates</h3>
+        <h2 className={classes.logo}>Codemates</h2>
       </NavLink>
 
       <nav ref={navRef} className={classes['nav']}>
         <div className={classes['nav__links']}>
           {links.map((link, index) => (
-            <NavLink to={link.path} key={index}>
+            <NavLink
+              to={link.path}
+              key={index}
+              className={classes['nav__link']}
+            >
               {link.linkName}
             </NavLink>
           ))}
         </div>
 
-        <div className={classes['nav__user-panel']}>
-          <BellIcon />
-          <p>{username ? username : null}</p>
+        <div className={classes['user-panel']}>
+          <div className={classes['user-panel__user-info']}>
+            {username && <FaRegBell />}
+            <p className={classes['user-panel__username']}>
+              {username && username}
+            </p>
+          </div>
 
           {token ? (
-            <ButtonSolid
-              className={classes['nav-links__signin']}
+            <button
+              className={classes['nav__login-btn']}
               onClick={handleLogOut}
             >
               Sign out
-            </ButtonSolid>
+            </button>
           ) : (
-            <Link className={classes['nav-links__signin']} to={'/login'}>
-              <ButtonSolid>Sign in</ButtonSolid>
+            <Link className={classes['nav__login-link']} to={'/login'}>
+              Sign in
             </Link>
           )}
         </div>
