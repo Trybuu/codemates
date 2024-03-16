@@ -9,6 +9,11 @@ header {
   padding: 2rem;
 }
 
+.logo {
+  color: $blue-primary;
+  margin-right: 2rem;
+}
+
 .nav {
   position: fixed;
   width: 100%;
@@ -19,11 +24,11 @@ header {
   flex-direction: column;
   gap: 2rem;
 
-  padding: 2rem;
+  padding: 1rem;
 
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 2px 2px 10px lightgreen;
+  box-shadow: 2px 2px 100px rgba(144, 238, 144, 0.267);
 
   z-index: 10000;
 
@@ -35,8 +40,37 @@ header {
     gap: 1rem;
   }
 
-  &__user-panel {
+  &__link {
+    color: $blue-primary;
+  }
+
+  &__login-link,
+  &__login-btn {
+    padding: 0.5rem 1rem;
+    background-color: rgb(125, 224, 125);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgb(231, 238, 241);
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.user-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  &__user-info {
     display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__username {
   }
 }
 
@@ -50,8 +84,8 @@ header {
   align-items: center;
   padding: 0.75rem;
 
-  background-color: lightgreen;
-  color: white;
+  background-color: rgb(125, 224, 125);
+  color: rgb(231, 238, 241);
 
   border: none;
   border-radius: 4px;
@@ -66,6 +100,9 @@ header {
   }
 
   &--close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
   }
 }
 
@@ -74,9 +111,10 @@ header {
     position: static;
 
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
 
-    padding: 0;
+    // padding: 0 0 0 20%;
 
     background-color: transparent;
     box-shadow: none;
@@ -84,9 +122,18 @@ header {
       flex-direction: row;
       gap: 2rem;
     }
+  }
 
-    &__user-panel {
-      margin-left: 12rem;
+  .user-panel {
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+
+    &__user-info {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      gap: 1rem;
     }
   }
 }
