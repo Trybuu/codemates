@@ -1,4 +1,4 @@
-import heroImage from '/images/puffin-4146015_1280.jpg'
+import heroImage from '/images/undraw_world_re_768g.svg'
 import classes from './Home.module.scss'
 import Steps from '../components/steps/Steps'
 import SectionTitle from '../components/section-title/SectionTitle'
@@ -11,27 +11,29 @@ export default function Home() {
       <div>
         <div className={classes['bg']}></div>
         <section className={classes['section-hero']}>
-          <div className={classes['section-hero__text']}>
+          <div className={classes['section-hero__text-wrapper']}>
             <h1 className={classes['section-hero__title']}>
-              Millions of Projects are waiting for you!
+              Ambitious projects await your participation!
             </h1>
             <p className={classes['section-hero__description']}>
-              Lorem ipsum is simply text printing and Lorem Ipsum is simply
-              dummy text.
+              Are you struggling to find people to collaborate with on a major
+              project that will impress recruiters? Codemates offers you the
+              opportunity to make this process easier. Utilize it to start
+              meeting new people and working on real-world projects!
             </p>
           </div>
           <div className={classes['section-hero__image']}>
             <img
               className={classes['section-hero__img']}
               src={heroImage}
-              alt=""
+              alt="Cartoon woman points to locations on Earth"
             />
           </div>
         </section>
 
         <SectionTitle
           title="How it works?"
-          text="Lorem ipsum dolor selor, cebulion."
+          text="Codemates aims to connect programmers from around the world, thus giving the opportunity to work together on the projects."
         />
         <Steps />
 

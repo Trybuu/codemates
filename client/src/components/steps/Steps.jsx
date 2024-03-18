@@ -18,7 +18,7 @@ export default function Steps() {
     {
       no: '03',
       title: 'Start Cooperate',
-      desc: 'Third, make contact with project owner or wait for response to your project.',
+      desc: 'Third, make contact with project owner or wait for response to your project announcement.',
       active: false,
     },
   ])
