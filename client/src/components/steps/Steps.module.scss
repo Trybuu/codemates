@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .cards {
   display: flex;
   justify-content: space-between;
@@ -5,7 +7,7 @@
   flex-wrap: wrap;
   gap: 1rem;
 
-  padding: 1rem;
+  padding: 2rem;
 
   @media screen and (min-width: 1616px) {
     padding: 0;
@@ -19,15 +21,15 @@
   width: 100%;
 
   padding: 2rem;
-  background-color: #fff;
+  background-color: $white;
   border-radius: 1rem;
   transition: 0.2s ease-in-out;
 
   cursor: default;
 
   &__number {
-    background-color: #cbe2d3;
-    color: #55bc7e;
+    background-color: $green-light;
+    color: $green-primary;
     padding: 0.5rem 0.75rem;
     font-size: 1.5rem;
     font-weight: 600;
@@ -42,7 +44,7 @@
   }
 
   &__desc {
-    color: #3e4749;
+    color: $gray-dark;
   }
 
   @media screen and (min-width: 1200px) {
@@ -55,8 +57,8 @@
     box-shadow: 0 10px 100px 1px rgba(200, 200, 200, 0.5);
     transform: scale(1.05);
     & .card__number {
-      background-color: #55bc7e;
-      color: #fff;
+      background-color: $green-primary;
+      color: $green-light;
     }
   }
 }

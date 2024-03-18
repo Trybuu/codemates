@@ -3,75 +3,90 @@ import { Code } from './Icons'
 import classes from './Showcase.module.scss'
 
 export default function Showcase() {
-  const tiles = [
+  const slides = [
     {
       icon: <Code />,
-      title: 'Design & Development',
+      title: 'Announcements',
+      description: 'Dozens of projects',
+    },
+    {
+      icon: <Code />,
+      title: 'Communicate with others',
+      description: '100+ active users',
+    },
+    {
+      icon: <Code />,
+      title: 'Filter by experience',
       description: '15K+ Posts Jobs',
     },
     {
       icon: <Code />,
-      title: 'Pierwsza kolumna',
+      title: 'Filter by tech stack',
       description: '15K+ Posts Jobs',
     },
-    {
-      icon: <Code />,
-      title: 'Design & Development',
-      description: '15K+ Posts Jobs',
-    },
-    {
-      icon: <Code />,
-      title: 'Design & Development',
-      description: '15K+ Posts Jobs',
-    },
-    {
-      icon: <Code />,
-      title: 'Druga kolumna',
-      description: '15K+ Posts Jobs',
-    },
-    {
-      icon: <Code />,
-      title: 'Design & Development',
-      description: '15K+ Posts Jobs',
-    },
-    {
-      icon: <Code />,
-      title: 'Design & Development',
-      description: '15K+ Posts Jobs',
-    },
-    {
-      icon: <Code />,
-      title: 'Design & Development',
-      description: '15K+ Posts Jobs',
-    },
+    // {
+    //   icon: <Code />,
+    //   title: 'Druga kolumna',
+    //   description: '15K+ Posts Jobs',
+    // },
+    // {
+    //   icon: <Code />,
+    //   title: 'Design & Development',
+    //   description: '15K+ Posts Jobs',
+    // },
+    // {
+    //   icon: <Code />,
+    //   title: 'Design & Development',
+    //   description: '15K+ Posts Jobs',
+    // },
+    // {
+    //   icon: <Code />,
+    //   title: 'Design & Development',
+    //   description: '15K+ Posts Jobs',
+    // },
   ]
 
   return (
     <section className={classes['showcase']}>
-      <div className={classes['image-wrapper']}>
-        <img
-          className={classes['image-wrapper__image']}
-          src="https://images.unsplash.com/photo-1707343843598-39755549ac9a?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt=""
-        />
-      </div>
-
-      <div className={classes['slider']}>
-        <div className={classes['slider__control']}>
-          <button className={classes['slider__button']}>{'<'}</button>
-          <button className={classes['slider__button']}>{'>'}</button>
+      <div className={classes['gallery']}>
+        <div className={classes['gallery__control']}>
+          <button className={classes['gallery__button']}>{'<'}</button>
+          <button className={classes['gallery__button']}>{'>'}</button>
         </div>
 
-        <div className={classes['slider__tiles']}>
-          {tiles.map((tile, index) => {
-            return (
-              <div key={index} className={classes['slider__tile']}>
-                <div className={classes['slider__icon']}>{tile.icon}</div>
-                <h3 className={classes['slider__title']}>{tile.title}</h3>
-                <p>{tile.description}</p>
+        <div className={classes['gallery__slides']}>
+          <div className={classes['gallery__column']}>
+            {slides.map((slide, index) => (
+              <div className={classes['gallery__slide']} key={index}>
+                <div className={classes['gallery__image-wrapper']}>
+                  {slide.icon}
+                </div>
+                <h3 className={classes['gallery__title']}>{slide.title}</h3>
+                <p className={classes['gallery__subtitle']}>
+                  {slide.description}
+                </p>
               </div>
-            )
-          })}
+            ))}
+            {/* <div className={classes['gallery__slide']}>
+              <div className={classes['gallery__image-wrapper']}>
+                <Code />
+              </div>
+              <h3 className={classes['gallery__title']}>
+                Design & Development
+              </h3>
+              <p className={classes['gallery__subtitle']}>15K+ Post Jobs</p>
+            </div>
+            <div className={classes['gallery__slide']}></div>
+            <div className={classes['gallery__slide']}></div>
+            <div className={classes['gallery__slide']}></div> */}
+          </div>
+
+          <div className={classes['gallery__column']}>
+            <div className={classes['gallery__slide']}></div>
+            <div className={classes['gallery__slide']}></div>
+            <div className={classes['gallery__slide']}></div>
+            <div className={classes['gallery__slide']}></div>
+          </div>
         </div>
       </div>
     </section>
