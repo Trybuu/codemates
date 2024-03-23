@@ -5,38 +5,48 @@ export default function Map() {
   const people = [
     {
       id: 0,
-      name: 'Jonathan',
+      name: 'Emily',
       opinion:
         'Thank you very much I am very happy to be able find employees in here the features is really amaizng!',
+      imagePath: '/images/person_1.png',
+      imageAtrribute: `Photo by <a href="https://unsplash.com/@wocintechchat?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Christina @ wocintechchat.com</a> on <a href="https://unsplash.com/photos/shallow-focus-photo-of-woman-in-gray-jacket-0Zx1bDv5BNY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      `,
     },
     {
       id: 1,
       name: 'Emma',
       opinion: 'I love codemates, best platform for lonely programmers!',
+      imagePath: '/images/person_2.jpg',
+      imageAtrribute: `Photo by <a href="https://unsplash.com/@aiony?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Aiony Haust</a> on <a href="https://unsplash.com/photos/woman-wearing-black-crew-neck-shirt-3TLl_97HNJo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      `,
     },
     {
       id: 2,
       name: 'Alex',
       opinion:
         'I met here guys with I have run my startup, thank you codemates <3',
+      imagePath: '/images/person_1.png',
     },
     {
       id: 3,
       name: 'Rose',
       opinion:
         'Thank you very much I am very happy to be able find employees in here the features is really amaizng!',
+      imagePath: '/images/person_1.png',
     },
     {
       id: 4,
       name: 'Max',
       opinion:
         'Thank you very much I am very happy to be able find employees in here the features is really amaizng!',
+      imagePath: '/images/person_1.png',
     },
     {
       id: 5,
       name: 'Max',
       opinion:
         'Thank you very much I am very happy to be able find employees in here the features is really amaizng!',
+      imagePath: '/images/person_1.png',
     },
   ]
 
@@ -59,8 +69,8 @@ export default function Map() {
       <div>
         {people.map((person, index) => (
           <img
-            src={`/images/thispersondoesnotexist_${person.id}.jpeg`}
-            alt="Person picture"
+            src={person.imagePath}
+            alt={person.imageAtrribute}
             className={`${classes['map__picture']} ${
               classes[`map__picture--${person.id}`]
             } ${
