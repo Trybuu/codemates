@@ -1,3 +1,5 @@
+@import './variables';
+
 * {
   font-family: 'Mukta', sans-serif;
 }
@@ -12,6 +14,7 @@ option {
 }
 
 a {
+  color: $blue-primary;
   text-decoration: none;
 }
 

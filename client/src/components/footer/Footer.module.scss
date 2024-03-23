@@ -1,13 +1,30 @@
 @import '../../styles/variables', '../../styles/mixins';
 
 .footer {
-  padding: 1.5rem;
-  border-top: 2px solid $gray;
+  padding: 4rem 1rem;
+  background-color: $green-light;
 
   &__content {
     @include content-wrapper;
 
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  &__logo {
+    color: $blue-primary;
+    font-weight: 600;
+  }
+
+  &__creator {
+    font-style: italic;
+  }
+
+  &__links {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.6rem;
   }
 }

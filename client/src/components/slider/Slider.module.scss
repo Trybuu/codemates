@@ -1,0 +1,20 @@
+/* Slider.module.scss */
+@import '../../styles/variables';
+
+.slider {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  background-color: $green-primary;
+
+  height: 80vh;
+
+  overflow: hidden;
+
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
