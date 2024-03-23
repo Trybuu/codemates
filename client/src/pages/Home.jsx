@@ -3,8 +3,6 @@ import classes from './Home.module.scss'
 import Steps from '../components/steps/Steps'
 import SectionTitle from '../components/section-title/SectionTitle'
 import Showcase from '../components/showcase/Showcase'
-import Map from '../components/map/Map'
-import Slider from '../components/slider/Slider'
 import Testimonial from '../components/testimonials/Testimonial'
 
 export default function Home() {
@@ -50,7 +48,6 @@ export default function Home() {
           text=" Codemates its platform that connect programmers from around the
           world."
         />
-        <Slider />
         <Testimonial />
       </div>
     </>
