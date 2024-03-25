@@ -12,9 +12,37 @@ export default function AnnouncementsList() {
     error,
   } = useFetch(`${import.meta.env.VITE_REST_SERVER_URL}/announcements`)
 
-  console.log(announcements)
+  if (isPending) {
+    return (
+      <div className={classes['list']}>
+        <LoadingCircles />
+      </div>
+    )
+  }
 
-  const announcementsContent = announcements?.map((announcement) => (
+  if (error) {
+    return (
+      <div className={classes['list']}>
+        <InfoMessage
+          type={'error'}
+          info={'Failed to fetch announcements, please try again later.'}
+        />
+      </div>
+    )
+  }
+
+  if (!Array.isArray(announcements)) {
+    return (
+      <div className={classes['list']}>
+        <InfoMessage
+          type={'error'}
+          info={'Failed to fetch announcements, please try again later.'}
+        />
+      </div>
+    )
+  }
+
+  const announcementsContent = announcements.map((announcement) => (
     <Announcement
       key={announcement.announcement_id}
       id={announcement.announcement_id}
@@ -27,20 +55,5 @@ export default function AnnouncementsList() {
     />
   ))
 
-  if (isPending)
-    return (
-      <div className={classes['list']}>
-        <LoadingCircles />
-      </div>
-    )
-
-  if (error)
-    return (
-      <div className={classes['list']}>
-        <InfoMessage type={error} />
-      </div>
-    )
-
-  if (announcements)
-    return <div className={classes['list']}>{announcementsContent}</div>
+  return <div className={classes['list']}>{announcementsContent}</div>
 }
