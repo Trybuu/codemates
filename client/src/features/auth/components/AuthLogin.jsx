@@ -59,8 +59,8 @@ export default function AuthLogin() {
 
       <div className={classes['auth']}>
         <div className={classes['auth__form']}>
-          <h3>Welcome back! Please login to get started.</h3>
-          <form onSubmit={handleSubmit} className={classes['form']}>
+          <h3>Welcome back! Please sign in to get started.</h3>
+          <form onSubmit={handleSubmit} className={classes['form']} noValidate>
             <label htmlFor="email">
               Email address<span className={classes['form__star']}>*</span>
               <br></br>
@@ -76,7 +76,7 @@ export default function AuthLogin() {
               <br></br>
               <input
                 type="password"
-                placeholder="At least 8 characters"
+                placeholder="Your password"
                 id="password"
                 name="password"
               />

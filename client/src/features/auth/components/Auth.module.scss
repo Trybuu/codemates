@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .auth {
   display: flex;
   align-items: center;
@@ -64,7 +66,8 @@
     margin: 0.5rem 0;
     padding: 0.5rem;
     border-radius: 4px;
-    background-color: transparent;
+    border: none;
+    background-color: $gray;
   }
 
   &__star {
