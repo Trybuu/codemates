@@ -11,7 +11,6 @@ export default function AuthLogin() {
     password: '',
     confirmPassword: '',
   })
-  const [allowSendForm, setAllowSendForm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
@@ -27,31 +26,42 @@ export default function AuthLogin() {
       confirmPassword: '',
     })
 
-    const fd = new FormData(e.target)
-    const userData = Object.fromEntries(fd.entries())
+    const formData = {
+      userName: e.target.userName.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      confirmPassword: e.target.confirmPassword.value,
+    }
 
-    console.table(userData)
-    validateForm(userData)
+    const isValid = validateForm(formData)
 
-    const response = await fetch(
-      `${import.meta.env.VITE_REST_SERVER_URL}/auth/signup`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
-      },
-    )
+    if (isValid) {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_REST_SERVER_URL}/auth/signup`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+          },
+        )
 
-    const data = await response.json()
-    if (data.detail || allowSendForm === false) {
-      console.log('ERROR')
-      setIsLoading(false)
+        const data = await response.json()
+
+        if (response.ok) {
+          navigate('/login')
+          window.location.reload()
+        } else {
+          console.error('Sign up error:', data)
+          setIsLoading(false)
+        }
+      } catch (error) {
+        console.error('Sign up error:', error)
+        setIsLoading(false)
+      }
     } else {
       setIsLoading(false)
-      navigate('/login')
-      window.location.reload()
     }
-    console.log(data)
   }
 
   function validateForm(formData) {
@@ -59,30 +69,34 @@ export default function AuthLogin() {
 
     var passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/gm
 
-    if (userName.length < 5)
+    if (userName.length < 5) {
       setValidateMessage((prevState) => ({
         ...prevState,
         userName: 'User name must be at least 5 characters long.',
       }))
-    else if (email.indexOf('@') === -1) {
+      return false
+    } else if (email.indexOf('@') === -1) {
       setValidateMessage((prevState) => ({
         ...prevState,
         email: 'It must be a valid email adress.',
       }))
+      return false
     } else if (!passwordRegex.test(password)) {
       setValidateMessage((prevState) => ({
         ...prevState,
         password:
           'Password should contain at least 8 characters, including one number and one capital letter.',
       }))
+      return false
     } else if (password !== confirmPassword) {
       setValidateMessage((prevState) => ({
         ...prevState,
         confirmPassword: "Passwords don't match!",
       }))
-    } else {
-      setAllowSendForm(true)
+      return false
     }
+
+    return true
   }
 
   return (
@@ -151,7 +165,9 @@ export default function AuthLogin() {
               </p>
             </label>
 
-            <button className={classes['auth__button']}>Sign up</button>
+            <button className={classes['auth__button']} type="submit">
+              Sign up
+            </button>
           </form>
         </div>
         <Aside />
