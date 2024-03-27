@@ -1,8 +1,9 @@
-import { FaBars, FaTimes, FaRegBell } from 'react-icons/fa'
+import { FaRegBell } from 'react-icons/fa'
 import { useRef } from 'react'
 import { useCookies } from 'react-cookie'
 import { Link, NavLink } from 'react-router-dom'
 import classes from './Navbar.module.scss'
+import { ButtonClose, ButtonOpenMenu } from '../ui/buttons/Buttons'
 
 const Navbar = () => {
   const [cookies, , removeCookie] = useCookies(null)
@@ -70,20 +71,10 @@ const Navbar = () => {
           )}
         </div>
 
-        <button
-          onClick={toggleNavbar}
-          className={`${classes['nav-button']} ${classes['nav-button--close']}`}
-        >
-          <FaTimes />
-        </button>
+        <ButtonClose onClick={toggleNavbar} visibility={'mobile'} />
       </nav>
 
-      <button
-        onClick={toggleNavbar}
-        className={`${classes['nav-button']} ${classes['nav-button--open']}`}
-      >
-        <FaBars />
-      </button>
+      <ButtonOpenMenu onClick={toggleNavbar} visibility={'mobile'} />
     </header>
   )
 }

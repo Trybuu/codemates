@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ButtonClose } from '../buttons/Buttons'
 import classes from './Modal.module.scss'
 
 export default function Modal({ open, onClose, children }) {
@@ -25,12 +26,7 @@ export default function Modal({ open, onClose, children }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className={classes['modal__control']}>
-              <button
-                onClick={handleCloseModal}
-                className={classes['close-button']}
-              >
-                X
-              </button>
+              <ButtonClose onClick={handleCloseModal} />
             </div>
             {children}
           </div>
