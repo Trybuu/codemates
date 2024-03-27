@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { login } from '../authSlice'
 import { useCookies } from 'react-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import classes from './Auth.module.scss'
@@ -8,12 +6,10 @@ import Aside from './Aside'
 import Overlay from '../../../components/ui/overlays/Overlay'
 
 export default function AuthLogin() {
-  const [cookies, setCookie] = useCookies(null)
+  const [, setCookie] = useCookies(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
-  const dispatch = useDispatch()
 
-  console.log(cookies)
   const navigate = useNavigate()
   async function handleSubmit(e) {
     e.preventDefault()
@@ -22,7 +18,6 @@ export default function AuthLogin() {
 
     const fd = new FormData(e.target)
     const userData = Object.fromEntries(fd.entries())
-    console.log(userData)
 
     const response = await fetch(
       `${import.meta.env.VITE_REST_SERVER_URL}/auth/login`,
@@ -44,13 +39,11 @@ export default function AuthLogin() {
       setCookie('AuthToken', data.token)
       setCookie('Username', data.username)
 
-      dispatch(login())
       setIsLoading(false)
 
       navigate('/')
       window.location.reload()
     }
-    console.log(data)
   }
 
   return (
