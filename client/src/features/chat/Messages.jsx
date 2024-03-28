@@ -1,13 +1,16 @@
 import useFetch from '../../hooks/useFetch'
 import LoadingCircles from '../../components/ui/loadings/LoadingCircles'
 import InfoMessage from '../../components/ui/messages/InfoMessage'
+import { useCookies } from 'react-cookie'
 
 export default function Messages() {
+  const [cookies] = useCookies()
+
   const {
     data: chat,
     isPending,
     error,
-  } = useFetch('http://localhost:8000/messages')
+  } = useFetch(`http://localhost:8000/messages/${cookies.UserId}`)
 
   if (isPending) return <LoadingCircles />
 
@@ -19,11 +22,28 @@ export default function Messages() {
       />
     )
 
+  if (!Array.isArray(chat)) {
+    return (
+      <InfoMessage
+        type={'error'}
+        info={'Internal server error. Try again later.'}
+      />
+    )
+  }
+
   if (chat && !isPending)
     return (
       <div>
-        <p>Messages</p>
-        {chat.map((val) => val.message)}
+        {chat.map((val, index) => {
+          return (
+            <div key={index}>
+              <div>
+                {val.username} | {val.sender_id} | {val.date}
+              </div>
+              <div>{val.message}</div>
+            </div>
+          )
+        })}
       </div>
     )
 }

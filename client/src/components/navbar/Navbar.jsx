@@ -21,6 +21,7 @@ const Navbar = () => {
     removeCookie('AuthToken')
     removeCookie('Email')
     removeCookie('Username')
+    removeCookie('UserId')
     window.location.reload()
   }
 
