@@ -10,7 +10,9 @@ export default function Messages() {
     data: chat,
     isPending,
     error,
-  } = useFetch(`http://localhost:8000/messages/${cookies.UserId}`)
+  } = useFetch(
+    `${import.meta.env.VITE_REST_SERVER_URL}/messages/${cookies.UserId}`,
+  )
 
   if (isPending) return <LoadingCircles />
 
