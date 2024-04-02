@@ -1,0 +1,21 @@
+@import '../../../styles/variables';
+
+.message-preview {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+.user-icon {
+  flex-shrink: 0;
+
+  height: 3rem;
+  width: 3rem;
+
+  background-color: $green-primary;
+  color: $white;
+  text-align: center;
+  line-height: 3rem;
+  border-radius: 50%;
+}

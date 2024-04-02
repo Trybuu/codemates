@@ -2,6 +2,7 @@ import useFetch from '../../hooks/useFetch'
 import LoadingCircles from '../../components/ui/loadings/LoadingCircles'
 import InfoMessage from '../../components/ui/messages/InfoMessage'
 import { useCookies } from 'react-cookie'
+import MessagePreview from './components/MessagePreview'
 
 export default function Messages() {
   const [cookies] = useCookies()
@@ -38,12 +39,12 @@ export default function Messages() {
       <div>
         {chat.map((val, index) => {
           return (
-            <div key={index}>
-              <div>
-                {val.username} | {val.sender_id} | {val.date}
-              </div>
-              <div>{val.message}</div>
-            </div>
+            <MessagePreview
+              key={index}
+              username={val.username}
+              date={val.date}
+              message={val.message}
+            />
           )
         })}
       </div>
