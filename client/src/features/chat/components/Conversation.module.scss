@@ -1,0 +1,15 @@
+.messages {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: pink;
+}
+
+.message {
+  width: 75%;
+  align-self: flex-start;
+
+  &--user {
+    align-self: flex-end;
+  }
+}

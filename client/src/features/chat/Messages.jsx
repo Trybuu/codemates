@@ -15,6 +15,8 @@ export default function Messages() {
     `${import.meta.env.VITE_REST_SERVER_URL}/messages/${cookies.UserId}`,
   )
 
+  console.log(chat)
+
   if (isPending) return <LoadingCircles />
 
   if (error)
@@ -44,6 +46,8 @@ export default function Messages() {
               username={val.username}
               date={val.date}
               message={val.message}
+              receiverId={val.receiver_id}
+              senderId={val.sender_id}
             />
           )
         })}

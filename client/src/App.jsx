@@ -8,6 +8,7 @@ import Chat from './pages/Chat.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import CreateAnnouncement from './pages/CreateAnnouncement.jsx'
+import ConversationPage from './pages/ConversationPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/chat',
         element: <Chat />,
+      },
+      {
+        path: '/chat/conversation/:senderId',
+        element: <ConversationPage />,
       },
       {
         path: '/login',
