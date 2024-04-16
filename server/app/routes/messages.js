@@ -32,4 +32,27 @@ router.get('/:userId', async (req, res) => {
   }
 })
 
+router.get('/conversation/:senderId/:userId', async (req, res) => {
+  const { senderId, userId } = req.params
+
+  try {
+    const conversationMessages = await pool.query(
+      `
+      SELECT * 
+      FROM messages 
+      WHERE (sender_id = $1 OR sender_id = $2) AND (receiver_id = $1 OR receiver_id = $2) 
+      ORDER BY date;
+    `,
+      [senderId, userId],
+    )
+    res.json(conversationMessages.rows)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      error: `An error occurred during fetching the messages.`,
+      details: error.message,
+    })
+  }
+})
+
 module.exports = router

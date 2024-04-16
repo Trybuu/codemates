@@ -7,7 +7,6 @@ export default function Chat() {
   return (
     <div>
       <Introduction text={intro} />
-      <h3>Chat Subpage</h3>
       <Messages />
     </div>
   )

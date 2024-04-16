@@ -1,11 +1,21 @@
+import { useNavigate } from 'react-router-dom'
 import classes from './MessagePreview.module.scss'
 import formatDate from '../../../utils/formatDate'
 
-export default function MessagePreview({ username, date, message }) {
+export default function MessagePreview({
+  username,
+  date,
+  message,
+  receiverId,
+  senderId,
+}) {
   const messageShortened = message.slice(0, 50)
+
+  const navigate = useNavigate()
 
   function openChat() {
     console.log('CHAT OPEN')
+    navigate(`conversation/${senderId}`)
   }
 
   return (
@@ -13,7 +23,8 @@ export default function MessagePreview({ username, date, message }) {
       <div className={classes['user-icon']}>{username[0]}</div>
       <div>
         <div>
-          {username} | {formatDate(date)}
+          {username} | {formatDate(date)} | receiver {receiverId} | sender{' '}
+          {senderId}
         </div>
         <div>
           {messageShortened} {message.length > 50 ? '...' : null}
