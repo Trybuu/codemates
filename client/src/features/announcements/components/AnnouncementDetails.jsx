@@ -28,6 +28,11 @@ export default function AnnouncementDetails() {
     setIsOpen(!isOpen)
   }
 
+  function submitMessage(e) {
+    e.preventDefault()
+    console.log('submit message')
+  }
+
   if (isPending) return <LoadingCircles />
   if (error) return <InfoMessage type="error" info={error} />
   if (announcement) {
@@ -37,8 +42,10 @@ export default function AnnouncementDetails() {
       <>
         <Modal open={isOpen} onClose={handleModalToggle}>
           <h2>Send message to {announcement.username} to cooperate!</h2>
-          <textarea name="" id="" cols="30" rows="10"></textarea>
-          <ButtonFullWidth text={'Send the message'} />
+          <form onSubmit={(e) => submitMessage(e)}>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <ButtonFullWidth text={'Send the message'} />
+          </form>
         </Modal>
 
         <div className={classes['announcement']}>
