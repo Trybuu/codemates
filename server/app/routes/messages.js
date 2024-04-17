@@ -55,4 +55,16 @@ router.get('/conversation/:senderId/:userId', async (req, res) => {
   }
 })
 
+router.post('/:senderId/:receiverId', async (req, res) => {
+  try {
+    // req.body
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      error: `An error occurred during sending the message.`,
+      details: error.message,
+    })
+  }
+})
+
 module.exports = router
