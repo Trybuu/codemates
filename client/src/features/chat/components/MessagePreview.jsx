@@ -9,6 +9,7 @@ export default function MessagePreview({
   receiverId,
   senderId,
 }) {
+  const formattedDate = formatDate(date)
   const messageShortened = message.slice(0, 50)
 
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ export default function MessagePreview({
       <div className={classes['user-icon']}>{username[0]}</div>
       <div>
         <div>
-          {username} | {formatDate(date)} | receiver {receiverId} | sender{' '}
+          {username} | {formattedDate.date} | receiver {receiverId} | sender{' '}
           {senderId}
         </div>
         <div>
