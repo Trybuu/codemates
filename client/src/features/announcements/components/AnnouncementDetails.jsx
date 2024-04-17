@@ -30,7 +30,9 @@ export default function AnnouncementDetails() {
 
   if (isPending) return <LoadingCircles />
   if (error) return <InfoMessage type="error" info={error} />
-  if (announcement)
+  if (announcement) {
+    const formattedDate = formatDate(announcement.date_posted)
+
     return (
       <>
         <Modal open={isOpen} onClose={handleModalToggle}>
@@ -46,7 +48,7 @@ export default function AnnouncementDetails() {
                 <UserIcon /> {announcement.username}
               </p>
               <p>
-                <CalendarIcon /> {formatDate(announcement.date_posted)}
+                <CalendarIcon /> {formattedDate.date}
               </p>
             </div>
 
@@ -71,4 +73,5 @@ export default function AnnouncementDetails() {
         </div>
       </>
     )
+  }
 }

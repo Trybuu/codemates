@@ -13,6 +13,8 @@ export default function Announcement({
   level,
   techStack,
 }) {
+  const formattedDate = formatDate(date)
+
   return (
     <div className={classes['announcement']}>
       <div className={classes['header']}>
@@ -23,7 +25,7 @@ export default function Announcement({
           </div>
           <div className={classes['header__date']}>
             <CalendarIcon />
-            {formatDate(date)}
+            {formattedDate.date}
           </div>
         </div>
         <Link to={`${id}`} relative="path">

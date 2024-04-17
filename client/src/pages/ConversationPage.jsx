@@ -26,7 +26,7 @@ export default function ConversationPage() {
     }
 
     fetchData()
-  }, [])
+  })
 
   console.log('d-_-b')
   console.log(conversationMessages)
@@ -38,8 +38,6 @@ export default function ConversationPage() {
   if (conversationMessages)
     return (
       <div>
-        {senderId}
-        {cookies.UserId}
         <Conversation
           data={conversationMessages}
           userId={cookies.UserId}
