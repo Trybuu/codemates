@@ -10,7 +10,7 @@ export default function Conversation({ data, userId, senderId }) {
 
   useEffect(() => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight
-  }, [])
+  }, [data.length])
 
   const conversation = data.map((message) => {
     const formattedDate = formatDate(message.date)
@@ -72,12 +72,15 @@ export default function Conversation({ data, userId, senderId }) {
       <div className={classes['messages']} ref={messagesRef}>
         {conversation}
       </div>
-      <form action="" className={classes['form']}>
+      <form
+        onSubmit={(e) => {
+          submitMessage(e)
+          inputRef.current.value = ''
+        }}
+        className={classes['form']}
+      >
         <input type="text" className={classes['form__input']} ref={inputRef} />
-        <button
-          className={classes['form__button']}
-          onClick={(e) => submitMessage(e)}
-        >
+        <button className={classes['form__button']}>
           <IoSend />
         </button>
       </form>

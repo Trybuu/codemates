@@ -58,8 +58,6 @@ router.get('/conversation/:senderId/:userId', async (req, res) => {
 router.post('/:senderId/:receiverId', async (req, res) => {
   const { senderId, receiverId, text } = req.body
   try {
-    if (text.length <= 30) return
-
     const newMessage = await pool.query(
       `
       INSERT INTO messages (sender_id, receiver_id, message)
