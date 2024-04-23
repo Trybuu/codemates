@@ -27,7 +27,7 @@ export default function ConversationPage() {
 
     fetchData()
 
-    const intervalId = setInterval(fetchData, 5000)
+    const intervalId = setInterval(fetchData, 2500)
 
     return () => clearInterval(intervalId)
   }, [senderId, cookies.UserId])
@@ -39,6 +39,7 @@ export default function ConversationPage() {
   if (conversationMessages)
     return (
       <div>
+        <div></div>
         <Conversation
           data={conversationMessages}
           userId={cookies.UserId}
