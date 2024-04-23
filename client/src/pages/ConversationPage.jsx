@@ -26,10 +26,11 @@ export default function ConversationPage() {
     }
 
     fetchData()
-  })
 
-  console.log('d-_-b')
-  console.log(conversationMessages)
+    const intervalId = setInterval(fetchData, 5000)
+
+    return () => clearInterval(intervalId)
+  }, [senderId, cookies.UserId])
 
   if (!Array.isArray(conversationMessages)) {
     return <h3>Data nie jest tablicą!</h3>

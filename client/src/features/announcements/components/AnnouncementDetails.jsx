@@ -10,9 +10,11 @@ import { CalendarIcon, UserIcon, HandshakeIcon } from './Icons'
 import classes from './AnnouncementDetails.module.scss'
 import ButtonFullWidth from '../../../components/ui/buttons/ButtonFullWidth'
 import Modal from '../../../components/ui/modal/Modal'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useCookies } from 'react-cookie'
 
 export default function AnnouncementDetails() {
+  const [cookies] = useCookies()
   const [isOpen, setIsOpen] = useState(false)
 
   const params = useParams()
@@ -24,13 +26,35 @@ export default function AnnouncementDetails() {
     `${import.meta.env.VITE_REST_SERVER_URL}/announcements/${params.id}`,
   )
 
+  const textAreaRef = useRef()
+
   function handleModalToggle() {
     setIsOpen(!isOpen)
   }
 
-  function submitMessage(e) {
+  async function submitMessage(e) {
     e.preventDefault()
-    console.log('submit message')
+    const message = {
+      senderId: cookies.UserId,
+      receiverId: announcement.user_id,
+      text: textAreaRef.current.value,
+    }
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_REST_SERVER_URL}/messages/${cookies.UserId}/${
+          announcement.user_id
+        }`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(message),
+        },
+      )
+      const data = await response.json()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   if (isPending) return <LoadingCircles />
@@ -43,7 +67,13 @@ export default function AnnouncementDetails() {
         <Modal open={isOpen} onClose={handleModalToggle}>
           <h2>Send message to {announcement.username} to cooperate!</h2>
           <form onSubmit={(e) => submitMessage(e)}>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              ref={textAreaRef}
+            ></textarea>
             <ButtonFullWidth text={'Send the message'} />
           </form>
         </Modal>
@@ -76,6 +106,7 @@ export default function AnnouncementDetails() {
             icon={<HandshakeIcon />}
             text={`Cooperate with ${announcement.username}!`}
             onClick={handleModalToggle}
+            disabled={cookies.UserId ? false : true}
           />
         </div>
       </>
