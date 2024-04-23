@@ -52,6 +52,7 @@ router.get('/:announcementId', async (req, res) => {
         announcements.description,
         announcements.level,
         announcements.date_posted,
+        users.user_id,
         users.username,
         users.email,
         ARRAY_AGG(technologies.name) AS technology_names
@@ -72,6 +73,7 @@ router.get('/:announcementId', async (req, res) => {
         announcements.description,
         announcements.level,
         announcements.date_posted,
+        users.user_id,
         users.username,
         users.email;
     `,

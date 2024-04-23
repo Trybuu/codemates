@@ -6,6 +6,7 @@ import { IoSend } from 'react-icons/io5'
 
 export default function Conversation({ data, userId, senderId }) {
   const messagesRef = useRef()
+  const inputRef = useRef()
 
   useEffect(() => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight
@@ -35,14 +36,48 @@ export default function Conversation({ data, userId, senderId }) {
     )
   })
 
+  async function submitMessage(e) {
+    e.preventDefault()
+    const message = {
+      senderId: userId,
+      receiverId: senderId,
+      text: inputRef.current.value,
+    }
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_REST_SERVER_URL}/messages/${message.senderId}/${
+          message.receiverId
+        }`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(message),
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error('Failed to send message')
+      }
+
+      const data = await response.json()
+      console.log(data) // Możesz obsłużyć odpowiedź serwera tutaj, jeśli to konieczne
+    } catch (error) {
+      console.error('Error sending message:', error)
+    }
+  }
+
   return (
     <section>
       <div className={classes['messages']} ref={messagesRef}>
         {conversation}
       </div>
       <form action="" className={classes['form']}>
-        <input type="text" className={classes['form__input']} />
-        <button className={classes['form__button']}>
+        <input type="text" className={classes['form__input']} ref={inputRef} />
+        <button
+          className={classes['form__button']}
+          onClick={(e) => submitMessage(e)}
+        >
           <IoSend />
         </button>
       </form>

@@ -2,13 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import classes from './MessagePreview.module.scss'
 import formatDate from '../../../utils/formatDate'
 
-export default function MessagePreview({
-  username,
-  date,
-  message,
-  receiverId,
-  senderId,
-}) {
+export default function MessagePreview({ username, date, message, senderId }) {
   const formattedDate = formatDate(date)
   const messageShortened = message.slice(0, 50)
 
@@ -24,8 +18,7 @@ export default function MessagePreview({
       <div className={classes['user-icon']}>{username[0]}</div>
       <div>
         <div>
-          {username} | {formattedDate.date} | receiver {receiverId} | sender{' '}
-          {senderId}
+          {username} <span> / </span> {formattedDate.date}
         </div>
         <div>
           {messageShortened} {message.length > 50 ? '...' : null}
