@@ -13,7 +13,9 @@ export default function ConversationPage() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8000/messages/conversation/${senderId}/${cookies.UserId}`,
+          `${
+            import.meta.env.VITE_REST_SERVER_URL
+          }/messages/conversation/${senderId}/${cookies.UserId}`,
         )
         if (!res.ok) {
           throw new Error('Network response was not ok')
