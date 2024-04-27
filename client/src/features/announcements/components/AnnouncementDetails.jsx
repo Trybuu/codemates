@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useFetch from '../../../hooks/useFetch'
 import formatDate from '../../../utils/formatDate'
@@ -6,6 +7,7 @@ import LoadingCircles from '../../../components/ui/loadings/LoadingCircles'
 import InfoMessage from '../../../components/ui/messages/InfoMessage'
 import AnnouncementStack from './AnnouncementStack'
 import { CalendarIcon, UserIcon, HandshakeIcon } from './Icons'
+import { BiMessageCheck } from 'react-icons/bi'
 
 import classes from './AnnouncementDetails.module.scss'
 import ButtonFullWidth from '../../../components/ui/buttons/ButtonFullWidth'
@@ -16,8 +18,43 @@ import { useCookies } from 'react-cookie'
 export default function AnnouncementDetails() {
   const [cookies] = useCookies()
   const [isOpen, setIsOpen] = useState(false)
+  const [isMessageSend, setIsMessageSend] = useState(false)
 
   const params = useParams()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_REST_SERVER_URL}/messages/conversation/${
+            announcement.user_id
+          }/${cookies.UserId}`,
+        )
+        if (!res.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const data = await res.json()
+
+        data.filter((message) => {
+          if (
+            message.sender_id === cookies.UserId ||
+            message.sender_id === announcement.user_id
+          ) {
+            return message
+          }
+        })
+
+        if (data.length > 0 || announcement.user_id === cookies.UserId) {
+          setIsMessageSend(true)
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  })
+
   const {
     data: announcement,
     isPending,
@@ -39,6 +76,8 @@ export default function AnnouncementDetails() {
       receiverId: announcement.user_id,
       text: textAreaRef.current.value,
     }
+
+    setIsMessageSend(true)
 
     try {
       const response = await fetch(
@@ -64,19 +103,40 @@ export default function AnnouncementDetails() {
 
     return (
       <>
-        <Modal open={isOpen} onClose={handleModalToggle}>
-          <h2>Send message to {announcement.username} to cooperate!</h2>
-          <form onSubmit={(e) => submitMessage(e)}>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              ref={textAreaRef}
-            ></textarea>
-            <ButtonFullWidth text={'Send the message'} />
-          </form>
-        </Modal>
+        {!isMessageSend ? (
+          <Modal open={isOpen} onClose={handleModalToggle}>
+            <div>
+              <h2>Send message to {announcement.username} to cooperate!</h2>
+              <form
+                onSubmit={(e) => submitMessage(e)}
+                className={classes['form']}
+              >
+                <textarea
+                  name=""
+                  id=""
+                  className={classes['form__textarea']}
+                  cols="30"
+                  rows="10"
+                  ref={textAreaRef}
+                ></textarea>
+                <ButtonFullWidth
+                  text={'Send the message'}
+                  className={classes['form__submit']}
+                />
+              </form>
+            </div>
+          </Modal>
+        ) : (
+          <Modal open={isOpen} onClose={handleModalToggle}>
+            <div className={classes['message']}>
+              <p>
+                <BiMessageCheck className={classes['message__icon']} />
+              </p>
+              <h2>Your message has been sent!</h2>
+              <p>Please wait for a response</p>
+            </div>
+          </Modal>
+        )}
 
         <div className={classes['announcement']}>
           <div className={classes['announcement__posted-info']}>
@@ -106,7 +166,7 @@ export default function AnnouncementDetails() {
             icon={<HandshakeIcon />}
             text={`Cooperate with ${announcement.username}!`}
             onClick={handleModalToggle}
-            disabled={cookies.UserId ? false : true}
+            disabled={!cookies.UserId || isMessageSend}
           />
         </div>
       </>
