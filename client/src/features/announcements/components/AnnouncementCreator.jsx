@@ -2,19 +2,11 @@ import { useCookies } from 'react-cookie'
 import useFetch from '../../../hooks/useFetch'
 import { PaperPlaneIcon } from './Icons'
 import classes from './AnnouncementCreator.module.scss'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import InfoMessage from '../../../components/ui/messages/InfoMessage'
 import LoadingCircles from '../../../components/ui/loadings/LoadingCircles'
 import Overlay from '../../../components/ui/overlays/Overlay'
 import ButtonFullWidth from '../../../components/ui/buttons/ButtonFullWidth'
-
-/*
-  [X] Pobierz wartości z inputów
-  [X] Sprawdź czy wartości są zgodne
-  [X] Jeśli wartości są niezgodne wyświetl inforamcję
-  [X] Jeśli wartości są zgodne prześlij formularz
-  [] Wyświetl stronę z komunikatem lub komunikat, że twoje ogłoszenie zostało zamieszczone
-*/
 
 export default function AnnouncementCreator() {
   const [cookies, , ,] = useCookies()
@@ -23,11 +15,37 @@ export default function AnnouncementCreator() {
   const [selectedTech, setSelectedTech] = useState([])
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [isUserAnnouncement, setIsUserAnnouncement] = useState(false)
 
   const titleRef = useRef()
   const shortDescRef = useRef()
   const levelSelectRef = useRef()
   const longDescRef = useRef()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_REST_SERVER_URL}/announcements`,
+        )
+        const data = await response.json()
+
+        console.log('-- DATA --')
+        console.log(data)
+
+        const userAnnouncement = await data.filter(
+          (announcement) => announcement.username === cookies.Username,
+        )
+
+        setIsUserAnnouncement(userAnnouncement.length > 0)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+        return [-1]
+      }
+    }
+
+    fetchData()
+  }, [cookies.Username])
 
   function handleCheckboxChange(e) {
     const { id, name, checked } = e.target
@@ -233,6 +251,7 @@ export default function AnnouncementCreator() {
         <ButtonFullWidth
           icon={<PaperPlaneIcon />}
           text={'Post an announcement'}
+          disabled={isUserAnnouncement}
         />
       </form>
     </>
