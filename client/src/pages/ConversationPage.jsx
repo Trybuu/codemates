@@ -1,8 +1,9 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
 import Conversation from '../features/chat/components/Conversation'
 import { useEffect, useState } from 'react'
+import BackButton from '../components/ui/buttons/BackButton'
 
 export default function ConversationPage() {
   const [cookies] = useCookies()
@@ -34,14 +35,14 @@ export default function ConversationPage() {
     return () => clearInterval(intervalId)
   }, [senderId, cookies.UserId])
 
-  if (!Array.isArray(conversationMessages)) {
-    return <h3>Data nie jest tablicą!</h3>
-  }
-
   if (conversationMessages)
     return (
       <div>
-        <div></div>
+        <div>
+          <Link to="/chat" path="relative">
+            <BackButton />
+          </Link>
+        </div>
         <Conversation
           data={conversationMessages}
           userId={cookies.UserId}
