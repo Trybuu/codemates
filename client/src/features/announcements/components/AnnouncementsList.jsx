@@ -1,4 +1,5 @@
 import useFetch from '../../../hooks/useFetch'
+import AnnouncementsFilter from './AnnouncementsFilter'
 import Announcement from './Announcement'
 import InfoMessage from '../../../components/ui/messages/InfoMessage'
 
@@ -55,5 +56,10 @@ export default function AnnouncementsList() {
     />
   ))
 
-  return <div className={classes['list']}>{announcementsContent}</div>
+  return (
+    <>
+      <AnnouncementsFilter />
+      <div className={classes['list']}>{announcementsContent}</div>
+    </>
+  )
 }

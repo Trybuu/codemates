@@ -44,6 +44,8 @@ export default function Conversation({ data, userId, senderId }) {
       text: inputRef.current.value,
     }
 
+    if (message.text.length === 0) return
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_REST_SERVER_URL}/messages/${message.senderId}/${
