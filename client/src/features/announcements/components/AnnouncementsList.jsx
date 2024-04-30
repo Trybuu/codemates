@@ -5,13 +5,22 @@ import InfoMessage from '../../../components/ui/messages/InfoMessage'
 
 import classes from './AnnouncementsList.module.scss'
 import LoadingCircles from '../../../components/ui/loadings/LoadingCircles'
+import { useState } from 'react'
 
 export default function AnnouncementsList() {
+  const [sortBy, setSortBy] = useState('difficultyDesc') // publishedAsc, publishedDesc, difficultyAsc, difficultyDesc
+
+  function sortByMethod(method) {
+    setSortBy(method)
+  }
+
   const {
     data: announcements,
     isPending,
     error,
-  } = useFetch(`${import.meta.env.VITE_REST_SERVER_URL}/announcements`)
+  } = useFetch(
+    `${import.meta.env.VITE_REST_SERVER_URL}/announcements/${sortBy}`,
+  )
 
   if (isPending) {
     return (
@@ -58,7 +67,7 @@ export default function AnnouncementsList() {
 
   return (
     <>
-      <AnnouncementsFilter />
+      <AnnouncementsFilter handleSortByMethod={sortByMethod} />
       <div className={classes['list']}>{announcementsContent}</div>
     </>
   )

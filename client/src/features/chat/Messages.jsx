@@ -27,11 +27,11 @@ export default function Messages() {
       />
     )
 
-  if (!Array.isArray(chat)) {
+  if (!Array.isArray(chat) && !cookies.UserId) {
     return (
       <InfoMessage
-        type={'error'}
-        info={'Internal server error. Try again later.'}
+        type={'warning'}
+        info={'You must be logged in to use chat!'}
       />
     )
   }

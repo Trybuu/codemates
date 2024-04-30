@@ -1,9 +1,14 @@
 import classes from './AnnouncementsFilter.module.scss'
 
-export default function AnnouncementsFilter() {
+export default function AnnouncementsFilter({ handleSortByMethod }) {
+  function onHandleSortByMethod(e) {
+    console.log(e.target.value)
+    handleSortByMethod(e.target.value)
+  }
+
   return (
     <div className={classes['filter']}>
-      <div>
+      {/* <div>
         <div>
           <h3>Select Tech</h3>
           <label htmlFor="">
@@ -34,12 +39,19 @@ export default function AnnouncementsFilter() {
             Master
           </label>
         </div>
-      </div>
+      </div> */}
       <div>
         <h3>Sort by</h3>
-        <select name="" id="">
-          <option value="publishedAscending">Published Ascending</option>
-          <option value="publishedDescending">Published Descending</option>
+        <select
+          name=""
+          id=""
+          onChange={(e) => onHandleSortByMethod(e)}
+          className={classes['filter__select']}
+        >
+          <option value="publishedDesc">From the newest</option>
+          <option value="publishedAsc">From the oldest</option>
+          <option value="difficultyAsc">From the easiest</option>
+          <option value="difficultyDesc">From the hardest</option>
         </select>
       </div>
     </div>
