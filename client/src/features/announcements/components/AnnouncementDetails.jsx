@@ -60,7 +60,9 @@ export default function AnnouncementDetails() {
     isPending,
     error,
   } = useFetch(
-    `${import.meta.env.VITE_REST_SERVER_URL}/announcements/${params.id}`,
+    `${import.meta.env.VITE_REST_SERVER_URL}/announcements/announcement/${
+      params.id
+    }`,
   )
 
   const textAreaRef = useRef()
