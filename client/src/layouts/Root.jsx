@@ -21,12 +21,13 @@ export default function Root() {
           padding: '1rem',
         }}
       >
-        <p style={{ maxWidth: '1440px' }}>
+        <p style={{ maxWidth: '1440px', textAlign: 'center' }}>
           W celu przetestowania aplikacji zaloguj się za pomocą danych:
           <b> testuser1@mate.com Testuser123</b> oraz{' '}
           <b>testuser2@mate.com Testuser123</b> lub załóż konto
-          <br/>
-          Hosting Render wyłącza usługę po dłuższej nieaktywności co może opóźniać żądania nawet o 50 sekund.
+          <br />
+          Hosting Render wyłącza usługę po dłuższej nieaktywności co może
+          opóźniać żądania nawet o 50 sekund.
         </p>
       </div>
       <Navbar />
