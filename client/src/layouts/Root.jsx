@@ -25,8 +25,7 @@ export default function Root() {
           W celu przetestowania aplikacji zaloguj się za pomocą danych:
           <b> testuser1@mate.com Testuser123</b> oraz{' '}
           <b>testuser2@mate.com Testuser123</b> lub załóż konto
-        </p>
-        <p>
+          <br/>
           Hosting Render wyłącza usługę po dłuższej nieaktywności co może opóźniać żądania nawet o 50 sekund.
         </p>
       </div>
