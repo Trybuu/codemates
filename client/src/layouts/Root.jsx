@@ -26,6 +26,9 @@ export default function Root() {
           <b> testuser1@mate.com Testuser123</b> oraz{' '}
           <b>testuser2@mate.com Testuser123</b> lub załóż konto
         </p>
+        <p>
+          Hosting Render wyłącza usługę po dłuższej nieaktywności co może opóźniać żądania nawet o 50 sekund.
+        </p>
       </div>
       <Navbar />
       <div className="content-wrapper">
