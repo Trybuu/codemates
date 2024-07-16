@@ -12,6 +12,21 @@ export default function Root() {
 
   return (
     <>
+      <div
+        style={{
+          backgroundColor: 'blue',
+          color: 'white',
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '1rem',
+        }}
+      >
+        <p style={{ maxWidth: '1440px' }}>
+          W celu przetestowania aplikacji zaloguj się za pomocą danych:
+          <b> testuser1@mate.com Testuser123</b> oraz{' '}
+          <b>testuser2@mate.com Testuser123</b> lub załóż konto
+        </p>
+      </div>
       <Navbar />
       <div className="content-wrapper">
         <Outlet />
